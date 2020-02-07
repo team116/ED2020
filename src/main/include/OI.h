@@ -7,10 +7,14 @@
 #ifndef SRC_OI_H_
 #define SRC_OI_H_
 
+#include <Ports.h>
+#include <frc/Joystick.h>
+
+
 class OI {
  public:
   static OI* getInstance();
-
+  void processMobility();
 
  private:
   OI();

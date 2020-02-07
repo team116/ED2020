@@ -7,6 +7,8 @@
 #ifndef SRC_CLIMBER_H_
 #define SRC_CLIMBER_H_
 
+#include <Ports.h>
+
 class ClimberEndEffector {
  public:
   static ClimberEndEffector* getInstance();
