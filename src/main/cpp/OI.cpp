@@ -4,6 +4,8 @@
 *
 */
 
+#include <OI.h>
+
 OI *OI::INSTANCE = nullptr;
 
 

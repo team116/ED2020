@@ -16,7 +16,6 @@ Mobility::Mobility() {
 }
 
 void Mobility::TankDrive(float left, float right) {
-
     m_RobotDrive.TankDrive(left,right);
 }
 
@@ -24,4 +23,5 @@ Mobility* Mobility::getInstance() {
     if (INSTANCE == nullptr) {
         INSTANCE = new Mobility();
     }
+    return INSTANCE;
 }

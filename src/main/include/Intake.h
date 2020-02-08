@@ -9,6 +9,7 @@
 
 #include <Ports.h>
 #include <ctre/Phoenix.h>
+#include <frc/DoubleSolenoid.h>
 
 class IntakeEndEffector {
  public:
@@ -18,7 +19,9 @@ class IntakeEndEffector {
                                               * But I don't know what else to put for a 
                                               * 775 motor...
                                               */ 
-
+  frc::DoubleSolenoid IntakeFolder {PCM0Ports::kPCM0CANID, 
+                                    PCM0Ports::kIntakeFolderRelease,
+                                    PCM0Ports::kIntakeFolderRetract}
  private:
   IntakeEndEffector();
   static IntakeEndEffector* INSTANCE;
