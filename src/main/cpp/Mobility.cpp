@@ -4,6 +4,9 @@
 *
 */
 
+#include <Mobility.h>
+#include <OI.h>
+
 Mobility* Mobility::INSTANCE = nullptr;
 
 Mobility::Mobility() {

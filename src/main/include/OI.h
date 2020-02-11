@@ -29,10 +29,10 @@ class OI {
  private:
   OI();
   static OI* INSTANCE;
-  Climber* climber;
-  Feeder* feeder;
-  Intake* intake;
-  Shooter* shooter;
+  ClimberEndEffector* climber;
+  FeederEndEffector* feeder;
+  IntakeEndEffector* intake;
+  ShooterEndEffector* shooter;
 };
 
 #endif /* SRC_OI_H_ */

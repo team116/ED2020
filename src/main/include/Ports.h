@@ -15,6 +15,8 @@ namespace RobotPorts {
     constexpr int kLeftSide2 = 1;
     constexpr int kIntake = 1;
     constexpr int kWinch = 1;
+    constexpr int kCrawler = 1;
+    constexpr int kColorSpinner = 1;
 
     // CAN IDs *I think
     constexpr int kFeederID = 1;
@@ -31,5 +33,6 @@ namespace PCM0Ports {
     constexpr int kShooterHoodExtend = 1;
     constexpr int kShooterHoodRetract = 1;
     constexpr int kClimberRelease = 1;
+    constexpr int kColorSpinnerFolder = 1;
 }
 #endif /* SRC_PORTS_H_ */

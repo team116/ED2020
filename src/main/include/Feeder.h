@@ -15,7 +15,7 @@ class FeederEndEffector {
   static FeederEndEffector* getInstance();
 
 // Should be a NEO motor. I think this works but not sure.
-rev::CANSparkMax m_Feeder{RobotPorts::kFeederID, rev::CANSparkMax::MotorType::kBrushless} 
+rev::CANSparkMax m_Feeder{RobotPorts::kFeederID, rev::CANSparkMax::MotorType::kBrushless}; 
 
  private:
   FeederEndEffector();

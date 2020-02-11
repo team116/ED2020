@@ -18,14 +18,14 @@ class ShooterEndEffector {
   //rename these when design is more final
 
   rev::CANSparkMax m_Shooter1{RobotPorts::kShooter1ID,
-   rev::CANSparkMax::MotorType::kBrushless}
+   rev::CANSparkMax::MotorType::kBrushless};
   
   rev::CANSparkMax m_Shooter2{RobotPorts::kShooter2ID,
-   rev::CANSparkMax::MotorType::kBrushless}
+   rev::CANSparkMax::MotorType::kBrushless};
 
   frc::DoubleSolenoid ShooterHood{PCM0Ports::kPCM0CANID,
    PCM0Ports::kShooterHoodExtend,
-   PCM0Ports::kShooterHoodRetract}
+   PCM0Ports::kShooterHoodRetract};
 
 
  private:

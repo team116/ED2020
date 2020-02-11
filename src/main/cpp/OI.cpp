@@ -9,6 +9,10 @@
 OI *OI::INSTANCE = nullptr;
 
 
-OI::processMobility() {
+void OI::processMobility() {
     
+}
+
+void OI::processClimber() {
+
 }
