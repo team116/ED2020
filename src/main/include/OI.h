@@ -10,7 +10,7 @@
 #include <Climber.h>
 #include <Feeder.h>
 #include <Intake.h>
-#include <Mobility.h>
+//#include <Mobility.h>
 #include <Shooter.h>
 #include <Ports.h>
 #include <frc/Joystick.h>
@@ -19,7 +19,7 @@
 
 class OI {
  public:
-  static OI* getInstance();
+  static OI *getInstance();
   void processMobility();
   void processClimber();
   void processFeeder();
@@ -28,11 +28,12 @@ class OI {
 
  private:
   OI();
-  static OI* INSTANCE;
-  ClimberEndEffector* climber;
-  FeederEndEffector* feeder;
-  IntakeEndEffector* intake;
-  ShooterEndEffector* shooter;
+  static OI *INSTANCE;
+
+  ClimberEndEffector *climber;
+  FeederEndEffector *feeder;
+  IntakeEndEffector *intake;
+  ShooterEndEffector *shooter;
 };
 
 #endif /* SRC_OI_H_ */

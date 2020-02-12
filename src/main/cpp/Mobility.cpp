@@ -4,7 +4,6 @@
 *
 */
 
-//Push to git!!!!!!!
 
 #include <Mobility.h>
 #include <OI.h>
@@ -14,7 +13,7 @@ Mobility* Mobility::INSTANCE = nullptr;
 Mobility::Mobility() {
 
     try {
-        oi = OI.getInstance();
+        oi = OI::getInstance();
     } catch (std::exception& e) {
         //add some kind of error message that means something
     }

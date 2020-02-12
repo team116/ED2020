@@ -6,6 +6,7 @@
 
 #include <OI.h>
 
+
 OI *OI::INSTANCE = nullptr;
 
 
@@ -15,4 +16,15 @@ void OI::processMobility() {
 
 void OI::processClimber() {
 
+}
+
+OI::OI() {
+    
+}
+
+OI *OI::getInstance() {
+    if (INSTANCE == nullptr) {
+        INSTANCE = new OI();
+    }
+    return INSTANCE;
 }

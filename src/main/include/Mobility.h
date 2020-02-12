@@ -35,7 +35,7 @@ class Mobility {
 
  private:
   Mobility();
-
+  OI *oi;
 
   static Mobility* INSTANCE;
 };
