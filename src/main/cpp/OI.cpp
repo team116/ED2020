@@ -10,16 +10,34 @@
 OI *OI::INSTANCE = nullptr;
 
 
-void OI::processMobility() {
-    
-}
 
 void OI::processClimber() {
 
 }
 
+void OI::processFeeder(){
+
+}
+
+void OI::processIntake() {
+
+}
+
+void OI::processShooter() {
+
+}
+
 OI::OI() {
     
+}
+
+void OI::process() {
+    // processes all different parts if the robot.
+    OI::processFeeder();
+    OI::processClimber();
+    OI::processIntake();
+    OI::processShooter();
+
 }
 
 OI *OI::getInstance() {

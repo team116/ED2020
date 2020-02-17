@@ -20,7 +20,7 @@
 class OI {
  public:
   static OI *getInstance();
-  void processMobility();
+  void process();
   void processClimber();
   void processFeeder();
   void processIntake();
