@@ -6,6 +6,9 @@
  */
 #ifndef SRC_PORTS_H_
 #define SRC_PORTS_H_
+
+// We're running on the real robot
+#define ED2020
 namespace RobotPorts {
 
     // Motor Controller Ports
