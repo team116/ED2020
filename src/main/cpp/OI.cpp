@@ -6,7 +6,7 @@
 
 #include <OI.h>
 
-
+bool someControl = false;
 OI *OI::INSTANCE = nullptr;
 
 
@@ -20,7 +20,25 @@ void OI::processFeeder(){
 }
 
 void OI::processIntake() {
+    if (someControl) {
+        OI::intake->intakeRetract();
+    }
 
+    if (someControl) {
+        OI::intake->intakeDeploy();
+    }
+
+    if (someControl) {
+        OI::intake->intakeMovement(IntakeEndEffector::Direction::OFF);
+    } else if (someControl) {
+        OI::intake->intakeMovement(IntakeEndEffector::Direction::INTAKE);
+    } else if (someControl) {
+        OI::intake->intakeMovement(IntakeEndEffector::Direction::EJECT);
+    } else {
+        OI::intake->intakeMovement(IntakeEndEffector::Direction::OFF);
+    }
+
+    
 }
 
 void OI::processShooter() {

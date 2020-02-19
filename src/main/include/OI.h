@@ -10,12 +10,12 @@
 #include <Climber.h>
 #include <Feeder.h>
 #include <Intake.h>
-//#include <Mobility.h>
 #include <Shooter.h>
 #include <Ports.h>
 #include <frc/Joystick.h>
 #include <frc/GenericHID.h>
 #include <frc/XboxController.h>
+#include <frc/DriverStation.h>
 
 class OI {
  public:
@@ -26,7 +26,10 @@ class OI {
   void processIntake();
   void processShooter();
 
+ 
  private:
+
+  frc::DriverStation &ds = frc::DriverStation::GetInstance();
   OI();
   static OI *INSTANCE;
 
