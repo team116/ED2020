@@ -7,18 +7,25 @@
 #ifndef SRC_FEEDER_H_
 #define SRC_FEEDER_H_
 
-#include "rev/CANSparkMax.h"
 #include <Ports.h>
+#include "rev/CANSparkMax.h"
 
 class FeederEndEffector {
  public:
   static FeederEndEffector* getInstance();
 
-// Should be a NEO motor. I think this works but not sure.
-rev::CANSparkMax m_Feeder{RobotPorts::kFeederID, rev::CANSparkMax::MotorType::kBrushless}; 
+  FeederEndEffector() {
+    // Should be a NEO motor
+    rev::CANSparkMax m_FeederMotor{RobotPorts::kFeederID,
+                                   rev::CANSparkMax::MotorType::kBrushless};
+                                   
+    // Reset motor defaults and switch to Coast mode
+    m_FeederMotor.RestoreFactoryDefaults();
+    m_FeederMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
+
+  }
 
  private:
-  FeederEndEffector();
   static FeederEndEffector* INSTANCE;
 };
 
