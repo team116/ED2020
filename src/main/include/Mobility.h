@@ -18,10 +18,12 @@ class Mobility {
   static Mobility* getInstance();
 
 #ifdef ED2020
-  WPI_VictorSPX m_LeftSideMotor1{RobotPorts::kLeftSide1};
-  WPI_VictorSPX m_LeftSideMotor2{RobotPorts::kLeftSide2};
-  WPI_VictorSPX m_RightSideMotor1{RobotPorts::kRightSide1};
-  WPI_VictorSPX m_RightSideMotor2{RobotPorts::kRightSide2};
+  WPI_VictorSPX m_LeftFrontMotor{RobotPorts::kLeftSide1};
+  WPI_VictorSPX m_LeftRearMotor{RobotPorts::kLeftSide2};
+  WPI_VictorSPX m_RightFrontMotor{RobotPorts::kRightSide1};
+  WPI_VictorSPX m_RightRearMotor{RobotPorts::kRightSide2};
+#else
+  // Test bot
 #endif
 
   frc::SpeedControllerGroup m_LeftSide{m_LeftSideMotor1, m_LeftSideMotor2};

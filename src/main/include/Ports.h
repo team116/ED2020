@@ -9,33 +9,60 @@
 
 // We're running on the real robot
 #define ED2020
+
+// Do we have the Pigeon IMU?
+#define HASPIGEONIMU
+
 namespace RobotPorts {
 
     // Motor Controller Ports
-    constexpr int kRightSide1 = 1; //Change all port values when decided on
-    constexpr int kRightSide2 = 1;
-    constexpr int kLeftSide1 = 1;
-    constexpr int kLeftSide2 = 1;
-    constexpr int kIntake = 1;
-    constexpr int kWinch = 1;
-    constexpr int kCrawler = 1;
-    constexpr int kColorSpinner = 1;
+    // CAN IDs
+    constexpr int kPDPID        = 0;
+    constexpr int kLeftFrontID  = 1;
+    constexpr int kLeftRearID   = 2;
+    constexpr int kRightFrontID = 3;
+    constexpr int kRightRearID  = 4;
+    constexpr int kFeederID     = 5;
+    constexpr int kShooter1ID   = 6;
+    constexpr int kShooter2ID   = 7;
+    constexpr int kIntakeID     = 8;
+    constexpr int kSpinnerID    = 9;
+    constexpr int kWinchID      = 10;
+    constexpr int kCrawlerID    = 11;
+    constexpr int kPigeonID     = 12; 
 
-    // CAN IDs *I think
-    constexpr int kFeederID = 1;
-    constexpr int kShooter1ID = 1;
-    constexpr int kShooter2ID = 2;
+    // Digital I/O from RoboRIO  --  Be sure the rename these to something more
+    // meaningful
+    constexpr int kDIOChannel0 = 0;  
+    constexpr int kDIOChannel1 = 1;
+    constexpr int kDIOChannel2 = 2;
+    constexpr int kDIOChannel3 = 3;
+    constexpr int kDIOChannel4 = 4;
+    constexpr int kDIOChannel5 = 5;
+    constexpr int kDIOChannel6 = 6;
+    constexpr int kDIOChannel7 = 7;
+    constexpr int kDIOChannel8 = 8;
+    constexpr int kDIOChannel9 = 9;
+
+    // Analog Inputs
+    constexpr int kAIChannel0 = 0;
+    constexpr int kAIChannel1 = 1;
+    constexpr int kAIChannel2 = 2;
+    constexpr int kAIChannel3 = 3;
 
 }
 
 namespace PCM0Ports {
-
-    constexpr int kPCM0CANID = 1;
-    constexpr int kIntakeFolderRelease = 1;
-    constexpr int kIntakeFolderRetract = 1;
-    constexpr int kShooterHoodExtend = 1;
-    constexpr int kShooterHoodRetract = 1;
-    constexpr int kClimberRelease = 1;
-    constexpr int kColorSpinnerFolder = 1;
+    // Pneumatics Control Module 0
+    constexpr int kPCM0CANID            = 15;
+    constexpr int kIntakeFolderExtend   = 0;
+    constexpr int kIntakeFolderRetract  = 7;
+    constexpr int kShooterHoodExtend    = 1;
+    constexpr int kShooterHoodRetract   = 6;
+    constexpr int kColorSpinnerExtend   = 2;
+    constexpr int kColorSpinnerRetract  = 5;
+    constexpr int kClimberRelease       = 3;
+    constexpr int kExtra                = 4;
 }
+
 #endif /* SRC_PORTS_H_ */
