@@ -15,13 +15,22 @@ class IntakeEndEffector {
  public:
   static IntakeEndEffector* getInstance();
 
-  WPI_VictorSPX m_intake{RobotPorts::kIntake}; /* I don't think that this is a victor motor 
+  enum Direction{ INTAKE, OFF, EJECT  };
+
+  WPI_VictorSPX m_Intake{RobotPorts::kIntake}; /* I don't think that this is a victor motor 
                                               * But I don't know what else to put for a 
                                               * 775 motor...
                                               */ 
   frc::DoubleSolenoid IntakeFolder {PCM0Ports::kPCM0CANID, 
                                     PCM0Ports::kIntakeFolderRelease,
                                     PCM0Ports::kIntakeFolderRetract};
+
+  //Assorted states
+  void intakeDeploy();
+  void intakeRetract();
+  void intakeOff();
+  void intakeMovement(Direction direction);
+
  private:
   IntakeEndEffector();
   static IntakeEndEffector* INSTANCE;
