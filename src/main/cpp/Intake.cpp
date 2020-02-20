@@ -12,16 +12,16 @@ IntakeEndEffector::IntakeEndEffector() {
 */
 void IntakeEndEffector::intakeDeploy() {
     printf("Intake Deploying/n");
-    IntakeFolder.Set(frc::DoubleSolenoid::kForward);
+    IntakePiston.Set(frc::DoubleSolenoid::kForward);
 }
 
 void IntakeEndEffector::intakeRetract() {
     printf("Intake Rectracting/n");
-    IntakeFolder.Set(frc::DoubleSolenoid::kReverse);
+    IntakePiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
 void IntakeEndEffector::intakeOff() {
-    IntakeFolder.Set(frc::DoubleSolenoid::kOff);
+    IntakePiston.Set(frc::DoubleSolenoid::kOff);
 }
 
 void IntakeEndEffector::intakeMovement(Direction direction) {

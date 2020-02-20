@@ -17,8 +17,6 @@ class Mobility {
   void process();
   static Mobility* getInstance();
 
-  // Constructor
-  Mobility() {
 #ifdef ED2020
     WPI_TalonSRX m_LeftFrontMotor{RobotPorts::kLeftFrontID};
     WPI_TalonSRX m_LeftRearMotor{RobotPorts::kLeftRearID};
@@ -32,11 +30,10 @@ class Mobility {
 #else
     // Test bot
 #endif
-  }
-
-  void TankDrive(float left, float right);
-
+  // Constructor for class
+ 
  private:
+  Mobility();
   OI* oi;
 
   static Mobility* INSTANCE;

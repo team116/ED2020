@@ -55,8 +55,8 @@ namespace RobotPorts {
 namespace PCM0Ports {
     // Pneumatics Control Module 0
     constexpr int kPCM0CANID            = 15;
-    constexpr int kIntakeFolderExtend   = 0;
-    constexpr int kIntakeFolderRetract  = 7;
+    constexpr int kIntakePistonExtend   = 0;
+    constexpr int kIntakePistonRetract  = 7;
     constexpr int kShooterHoodExtend    = 1;
     constexpr int kShooterHoodRetract   = 6;
     constexpr int kColorSpinnerExtend   = 2;

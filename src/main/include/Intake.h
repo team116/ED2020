@@ -13,16 +13,14 @@
 
 class IntakeEndEffector {
  public:
+  void process();
   static IntakeEndEffector* getInstance();
 
-  IntakeEndEffector() {
-   // Motor is a RS775 with Talon SRX
+  // Motor is a RS775 with Talon SRX
   WPI_TalonSRX m_IntakeMotor{RobotPorts::kIntakeID};
 
-  frc::DoubleSolenoid IntakeFolder{PCM0Ports::kPCM0CANID, PCM0Ports::kIntakeFolderExtend,
-                                   PCM0Ports::kIntakeFolderRetract};
-   
-  }
+  frc::DoubleSolenoid IntakePiston{PCM0Ports::kPCM0CANID, PCM0Ports::kIntakePistonExtend,
+                                   PCM0Ports::kIntakePistonRetract};
 
   enum Direction { INTAKE, OFF, EJECT };
 
@@ -33,7 +31,7 @@ class IntakeEndEffector {
   void intakeMovement(Direction direction);
 
  private:
-
+  IntakeEndEffector();
   static IntakeEndEffector* INSTANCE;
 };
 
