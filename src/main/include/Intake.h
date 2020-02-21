@@ -31,7 +31,9 @@ class IntakeEndEffector {
   void intakeMovement(Direction direction);
 
  private:
-  IntakeEndEffector();
+  IntakeEndEffector() {
+
+  }
   static IntakeEndEffector* INSTANCE;
 };
 
