@@ -31,7 +31,7 @@ void OI::processIntake() {
 
     //Intake Roller Controls
     if (someControl) {
-        OI::intake->intakeOff();
+//        OI::intake->intakeOff();
     }
 
     if (someControl) {
