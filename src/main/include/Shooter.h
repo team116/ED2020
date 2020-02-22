@@ -23,8 +23,9 @@ class ShooterEndEffector {
     rev::CANSparkMax m_Shooter2Motor{RobotPorts::kShooter2ID,
                                      rev::CANSparkMax::MotorType::kBrushless};
 
-    frc::DoubleSolenoid m_ShooterHood{PCM0Ports::kPCM0CANID, PCM0Ports::kShooterHoodExtend,
-                                    PCM0Ports::kShooterHoodRetract};
+    frc::DoubleSolenoid m_ShooterHood{PCM0Ports::kPCM0CANID,
+                                      PCM0Ports::kShooterHoodExtend,
+                                      PCM0Ports::kShooterHoodRetract};
 
     // Initialize motors to factory defaults and set IdleMode
     m_Shooter1Motor.RestoreFactoryDefaults();
@@ -34,7 +35,12 @@ class ShooterEndEffector {
 
     // Have Shooter2 follow Shooter1 -- we only need to send commands to Shooter1
     m_Shooter2Motor.Follow(m_Shooter1Motor, true);
-                                
+
+    try {
+      //      oi = OI::getInstance();
+    } catch (std::exception& e) {
+      // add some kind of error message that means something
+    }
   }
 
  private:
