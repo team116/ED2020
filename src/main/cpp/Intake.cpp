@@ -1,27 +1,33 @@
 
+/*
+*   Created on: Some Day
+*   By: Jess Wu
+*
+*/
 #include <Intake.h>
 #include <Ports.h>
-#include <OI.h>
 
 IntakeEndEffector* IntakeEndEffector::INSTANCE = nullptr;
-/*
-Defined in the header class
 IntakeEndEffector::IntakeEndEffector() {
-    //Initialization Code here
-}
-*/
-void IntakeEndEffector::intakeDeploy() {
+    try {
+//      oi = OI::getInstance();
+    } catch (std::exception& e) {
+      // add some kind of error message that means something
+    }
+  }
+
+  void IntakeEndEffector::intakeDeploy() {
     printf("Intake Deploying/n");
-    IntakePiston.Set(frc::DoubleSolenoid::kForward);
+    m_IntakePiston.Set(frc::DoubleSolenoid::kForward);
 }
 
 void IntakeEndEffector::intakeRetract() {
     printf("Intake Rectracting/n");
-    IntakePiston.Set(frc::DoubleSolenoid::kReverse);
+    m_IntakePiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
 void IntakeEndEffector::intakeOff() {
-    IntakePiston.Set(frc::DoubleSolenoid::kOff);
+    m_IntakePiston.Set(frc::DoubleSolenoid::kOff);
 }
 
 void IntakeEndEffector::intakeMovement(Direction direction) {
@@ -45,9 +51,11 @@ void IntakeEndEffector::intakeMovement(Direction direction) {
     }
 }
 
+
 IntakeEndEffector* IntakeEndEffector::getInstance() {
     if (INSTANCE == nullptr) {
         INSTANCE = new IntakeEndEffector();
     }
     return INSTANCE;
 }
+

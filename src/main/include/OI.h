@@ -33,10 +33,10 @@ class OI {
   OI();
   static OI *INSTANCE;
 
-  ClimberEndEffector *climber;
-  FeederEndEffector *feeder;
-  IntakeEndEffector *intake;
-  ShooterEndEffector *shooter;
+//  ClimberEndEffector *climber;
+//  FeederEndEffector *feeder;
+//  IntakeEndEffector *intake;
+//  ShooterEndEffector *shooter;
 };
 
 #endif /* SRC_OI_H_ */

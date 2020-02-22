@@ -8,10 +8,10 @@
 #define SRC_PORTS_H_
 
 // We're running on the real robot
-#define ED2020
+#define ED2020 1
 
 // Do we have the Pigeon IMU?
-#define HASPIGEONIMU
+#define HASPIGEONIMU 1
 
 namespace RobotPorts {
 
@@ -53,6 +53,7 @@ namespace RobotPorts {
 }
 
 namespace PCM0Ports {
+    constexpr int kPCM0                 = 0;
     // Pneumatics Control Module 0
     constexpr int kPCM0CANID            = 15;
     constexpr int kIntakePistonExtend   = 0;

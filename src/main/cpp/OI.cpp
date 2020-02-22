@@ -21,21 +21,21 @@ void OI::processFeeder(){
 
 void OI::processIntake() {
     if (someControl) {
-        OI::intake->intakeRetract();
+//        OI::intake->intakeRetract();
     }
 
     if (someControl) {
-        OI::intake->intakeDeploy();
+//        OI::intake->intakeDeploy();
     }
 
     if (someControl) {
-        OI::intake->intakeMovement(IntakeEndEffector::Direction::OFF);
+ //       OI::intake->intakeMovement(IntakeEndEffector::Direction::OFF);
     } else if (someControl) {
-        OI::intake->intakeMovement(IntakeEndEffector::Direction::INTAKE);
+ //       OI::intake->intakeMovement(IntakeEndEffector::Direction::INTAKE);
     } else if (someControl) {
-        OI::intake->intakeMovement(IntakeEndEffector::Direction::EJECT);
+ //       OI::intake->intakeMovement(IntakeEndEffector::Direction::EJECT);
     } else {
-        OI::intake->intakeMovement(IntakeEndEffector::Direction::OFF);
+//        OI::intake->intakeMovement(IntakeEndEffector::Direction::OFF);
     }
 
     

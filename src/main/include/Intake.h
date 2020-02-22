@@ -7,6 +7,7 @@
 #ifndef SRC_INTAKE_H_
 #define SRC_INTAKE_H_
 
+#include <OI.h>
 #include <Ports.h>
 #include <ctre/Phoenix.h>
 #include <frc/DoubleSolenoid.h>
@@ -14,14 +15,6 @@
 class IntakeEndEffector {
  public:
   void process();
-  static IntakeEndEffector* getInstance();
-
-  // Motor is a RS775 with Talon SRX
-  WPI_TalonSRX m_IntakeMotor{RobotPorts::kIntakeID};
-
-  frc::DoubleSolenoid IntakePiston{PCM0Ports::kPCM0CANID, PCM0Ports::kIntakePistonExtend,
-                                   PCM0Ports::kIntakePistonRetract};
-
   enum Direction { INTAKE, OFF, EJECT };
 
   // Assorted states
@@ -30,8 +23,20 @@ class IntakeEndEffector {
   void intakeOff();
   void intakeMovement(Direction direction);
 
+  static IntakeEndEffector* getInstance();
+
+#ifdef ED2020
+  WPI_TalonSRX m_IntakeMotor{RobotPorts::kIntakeID};
+  frc::DoubleSolenoid m_IntakePiston{PCM0Ports::kPCM0, PCM0Ports::kIntakePistonExtend,
+                                     PCM0Ports::kIntakePistonRetract};
+#else
+  // Test bot
+#endif
+  // Constructor for class
+
  private:
   IntakeEndEffector();
+
   static IntakeEndEffector* INSTANCE;
 };
 
