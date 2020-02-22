@@ -35,8 +35,14 @@ class IntakeEndEffector {
   // Constructor for class
 
  private:
+<<<<<<< HEAD
   IntakeEndEffector();
 
+=======
+  IntakeEndEffector() {
+
+  }
+>>>>>>> d92e943bba26092f82cc0b9c1a9c3f465a95c1b0
   static IntakeEndEffector* INSTANCE;
 };
 

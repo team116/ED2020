@@ -5,14 +5,14 @@
 */
 
 #include <OI.h>
-
+//Get rid of some Control at some point and replace with the control OI uses
 bool someControl = false;
 OI *OI::INSTANCE = nullptr;
 
 
 
 void OI::processClimber() {
-
+    
 }
 
 void OI::processFeeder(){
@@ -20,12 +20,18 @@ void OI::processFeeder(){
 }
 
 void OI::processIntake() {
+    //Intake Piston Controls
     if (someControl) {
 //        OI::intake->intakeRetract();
     }
 
     if (someControl) {
 //        OI::intake->intakeDeploy();
+    }
+
+    //Intake Roller Controls
+    if (someControl) {
+        OI::intake->intakeOff();
     }
 
     if (someControl) {
