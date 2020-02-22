@@ -16,3 +16,7 @@ FeederEndEffector* FeederEndEffector::getInstance() {
     }
     return INSTANCE;
 }
+
+void FeederEndEffector::process() {
+
+}

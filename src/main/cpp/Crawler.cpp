@@ -15,3 +15,7 @@ CrawlerEndEffector* CrawlerEndEffector::getInstance() {
     }
     return INSTANCE;
 }
+
+void CrawlerEndEffector::process() {
+
+}

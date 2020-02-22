@@ -14,6 +14,8 @@ class ColorSpinnerEndEffector {
  public:
   static ColorSpinnerEndEffector* getInstance();
 
+  void process();
+  
   ColorSpinnerEndEffector() {
     WPI_VictorSPX ColorSpinner{RobotPorts::kSpinnerID};
     frc::DoubleSolenoid ColorSpinnerFolder {PCM0Ports::kPCM0,

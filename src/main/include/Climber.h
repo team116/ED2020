@@ -14,14 +14,15 @@ class ClimberEndEffector {
  public:
   static ClimberEndEffector* getInstance();
 
- ClimberEndEffector() {  
-  WPI_VictorSPX Winch{RobotPorts::kWinchID}; 
+  void process();
 
-  frc::Solenoid ClimberExtender{PCM0Ports::kClimberRelease};
- }
+  ClimberEndEffector() {
+    WPI_VictorSPX Winch{RobotPorts::kWinchID};
+
+    frc::Solenoid ClimberExtender{PCM0Ports::kClimberRelease};
+  }
 
  private:
- 
   static ClimberEndEffector* INSTANCE;
 };
 

@@ -14,6 +14,8 @@ class FeederEndEffector {
  public:
   static FeederEndEffector* getInstance();
 
+  void process();
+  
   FeederEndEffector() {
     // Should be a NEO motor
     rev::CANSparkMax m_FeederMotor{RobotPorts::kFeederID,

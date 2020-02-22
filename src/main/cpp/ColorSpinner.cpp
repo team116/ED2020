@@ -15,3 +15,7 @@ ColorSpinnerEndEffector* ColorSpinnerEndEffector::getInstance() {
   }
   return INSTANCE;
 }
+
+void ColorSpinnerEndEffector::process() {
+
+}

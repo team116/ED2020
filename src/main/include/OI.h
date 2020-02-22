@@ -26,7 +26,6 @@ class OI {
   void processIntake();
   void processShooter();
 
- 
  private:
 
   frc::DriverStation &ds = frc::DriverStation::GetInstance();

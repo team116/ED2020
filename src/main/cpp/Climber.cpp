@@ -15,3 +15,7 @@ ClimberEndEffector* ClimberEndEffector::getInstance() {
     }
     return INSTANCE;
 }
+
+void ClimberEndEffector::process() {
+    // Do the work
+}

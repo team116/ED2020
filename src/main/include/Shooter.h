@@ -15,6 +15,8 @@ class ShooterEndEffector {
  public:
   static ShooterEndEffector* getInstance();
 
+  void process();
+  
   ShooterEndEffector() {
     // rename these when design is more final
     rev::CANSparkMax m_Shooter1Motor{RobotPorts::kShooter1ID,

@@ -16,3 +16,7 @@ ShooterEndEffector* ShooterEndEffector::getInstance() {
     }
     return INSTANCE;
 }
+
+void ShooterEndEffector::process() {
+    
+}
