@@ -17,6 +17,11 @@ FeederEndEffector* FeederEndEffector::getInstance() {
     return INSTANCE;
 }
 
+void FeederEndEffector::feederPID(double setpoint) {
+  FeederEndEffector::SetPoint = setpoint;
+  FeederEndEffector::m_pidController.SetReference(FeederEndEffector::SetPoint, rev::ControlType::kVelocity);
+}
+
 void FeederEndEffector::process() {
 
 }

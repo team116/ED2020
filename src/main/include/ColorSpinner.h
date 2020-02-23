@@ -16,12 +16,11 @@ class ColorSpinnerEndEffector {
 
   void process();
   
-  ColorSpinnerEndEffector() {
-    WPI_VictorSPX ColorSpinner{RobotPorts::kSpinnerID};
-    frc::DoubleSolenoid ColorSpinnerFolder {PCM0Ports::kPCM0,
-                                            PCM0Ports::kColorSpinnerExtend,
-                                            PCM0Ports::kColorSpinnerRetract };
-  }
+  WPI_VictorSPX ColorSpinner{RobotPorts::kSpinnerID};
+  frc::DoubleSolenoid ColorSpinnerFolder{PCM0Ports::kPCM0, PCM0Ports::kColorSpinnerExtend,
+                                         PCM0Ports::kColorSpinnerRetract};
+
+  ColorSpinnerEndEffector() {}
 
  private:
   static ColorSpinnerEndEffector* INSTANCE;
