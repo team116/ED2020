@@ -11,16 +11,16 @@
 #include <ctre/Phoenix.h>
 
 class CrawlerEndEffector {
- public:
-  static CrawlerEndEffector* getInstance();
+   public:
+    static CrawlerEndEffector* getInstance();
 
-  void process();
-  WPI_VictorSPX Crawler{RobotPorts::kCrawlerID};  // Should be a NEO motor
+    void process();
+    WPI_VictorSPX Crawler{RobotPorts::kCrawlerID};  // Should be a NEO motor
 
-  CrawlerEndEffector() {}
+    CrawlerEndEffector() {}
 
- private:
-  static CrawlerEndEffector* INSTANCE;
+   private:
+    static CrawlerEndEffector* INSTANCE;
 };
 
 #endif /* SRC_CRAWLER_H_ */

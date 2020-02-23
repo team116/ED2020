@@ -11,19 +11,20 @@
 #include <frc/DoubleSolenoid.h>
 
 class ColorSpinnerEndEffector {
- public:
-  static ColorSpinnerEndEffector* getInstance();
+   public:
+    static ColorSpinnerEndEffector* getInstance();
 
-  void process();
-  
-  WPI_VictorSPX ColorSpinner{RobotPorts::kSpinnerID};
-  frc::DoubleSolenoid ColorSpinnerFolder{PCM0Ports::kPCM0, PCM0Ports::kColorSpinnerExtend,
-                                         PCM0Ports::kColorSpinnerRetract};
+    void process();
 
-  ColorSpinnerEndEffector() {}
+    WPI_VictorSPX ColorSpinner{RobotPorts::kSpinnerID};
+    frc::DoubleSolenoid ColorSpinnerFolder{PCM0Ports::kPCM0,
+                                           PCM0Ports::kColorSpinnerExtend,
+                                           PCM0Ports::kColorSpinnerRetract};
 
- private:
-  static ColorSpinnerEndEffector* INSTANCE;
+    ColorSpinnerEndEffector() {}
+
+   private:
+    static ColorSpinnerEndEffector* INSTANCE;
 };
 
 #endif /*SRC_COLORSPINNER_H_*/

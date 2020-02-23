@@ -10,32 +10,31 @@
 #include <Climber.h>
 #include <Feeder.h>
 #include <Intake.h>
-#include <Shooter.h>
 #include <Ports.h>
-#include <frc/Joystick.h>
-#include <frc/GenericHID.h>
-#include <frc/XboxController.h>
+#include <Shooter.h>
 #include <frc/DriverStation.h>
+#include <frc/GenericHID.h>
+#include <frc/Joystick.h>
+#include <frc/XboxController.h>
 
 class OI {
- public:
-  static OI *getInstance();
-  void process();
-  void processClimber();
-  void processFeeder();
-  void processIntake();
-  void processShooter();
+   public:
+    static OI *getInstance();
+    void process();
+    void processClimber();
+    void processFeeder();
+    void processIntake();
+    void processShooter();
 
- private:
+   private:
+    frc::DriverStation &ds = frc::DriverStation::GetInstance();
+    OI();
+    static OI *INSTANCE;
 
-  frc::DriverStation &ds = frc::DriverStation::GetInstance();
-  OI();
-  static OI *INSTANCE;
-
-//  ClimberEndEffector *climber;
-//  FeederEndEffector *feeder;
-//  IntakeEndEffector *intake;
-//  ShooterEndEffector *shooter;
+    //  ClimberEndEffector *climber;
+    //  FeederEndEffector *feeder;
+    //  IntakeEndEffector *intake;
+    //  ShooterEndEffector *shooter;
 };
 
 #endif /* SRC_OI_H_ */

@@ -1,11 +1,11 @@
 /*
-*   Created on: Some Day
-*   By: Jess Wu
-*
-*/
-#include <frc/drive/DifferentialDrive.h>
-#include <Ports.h>
+ *   Created on: Some Day
+ *   By: Jess Wu
+ *
+ */
 #include <Feeder.h>
+#include <Ports.h>
+#include <frc/drive/DifferentialDrive.h>
 #include "rev/CANSparkMax.h"
 
 FeederEndEffector* FeederEndEffector::INSTANCE = nullptr;
@@ -18,10 +18,9 @@ FeederEndEffector* FeederEndEffector::getInstance() {
 }
 
 void FeederEndEffector::feederPID(double setpoint) {
-  FeederEndEffector::SetPoint = setpoint;
-  FeederEndEffector::m_pidController.SetReference(FeederEndEffector::SetPoint, rev::ControlType::kVelocity);
+    FeederEndEffector::SetPoint = setpoint;
+    FeederEndEffector::m_pidController.SetReference(FeederEndEffector::SetPoint,
+                                                    rev::ControlType::kVelocity);
 }
 
-void FeederEndEffector::process() {
-
-}
+void FeederEndEffector::process() {}

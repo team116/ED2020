@@ -13,30 +13,30 @@
 #include <frc/DoubleSolenoid.h>
 
 class IntakeEndEffector {
- public:
-  void process();
-  enum Direction { INTAKE, OFF, EJECT };
+   public:
+    void process();
+    enum Direction { INTAKE, OFF, EJECT };
 
-  // Assorted states
-  void intakeDeploy();
-  void intakeRetract();
-  void intakeOff();
-  void intakeMovement(Direction direction);
+    // Assorted states
+    void intakeDeploy();
+    void intakeRetract();
+    void intakeOff();
+    void intakeMovement(Direction direction);
 
-  static IntakeEndEffector* getInstance();
+    static IntakeEndEffector* getInstance();
 
 #ifdef ED2020
-  WPI_TalonSRX m_IntakeMotor{RobotPorts::kIntakeID};
-  frc::DoubleSolenoid m_IntakePiston{PCM0Ports::kPCM0, PCM0Ports::kIntakePistonExtend,
-                                     PCM0Ports::kIntakePistonRetract};
+    WPI_TalonSRX m_IntakeMotor{RobotPorts::kIntakeID};
+    frc::DoubleSolenoid m_IntakePiston{PCM0Ports::kPCM0, PCM0Ports::kIntakePistonExtend,
+                                       PCM0Ports::kIntakePistonRetract};
 #else
-  // Test bot
+    // Test bot
 #endif
-  // Constructor for class
+    // Constructor for class
 
- private:
-  IntakeEndEffector();
-  static IntakeEndEffector* INSTANCE;
+   private:
+    IntakeEndEffector();
+    static IntakeEndEffector* INSTANCE;
 };
 
 #endif /* SRC_INTAKE_H_ */

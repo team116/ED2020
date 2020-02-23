@@ -1,11 +1,11 @@
 /*
-*   Created on: 02/22/20
-*   By: Mike A
-*
-*/
-#include <frc/drive/DifferentialDrive.h>
-#include <Ports.h>
+ *   Created on: 02/22/20
+ *   By: Mike A
+ *
+ */
 #include <Crawler.h>
+#include <Ports.h>
+#include <frc/drive/DifferentialDrive.h>
 
 CrawlerEndEffector* CrawlerEndEffector::INSTANCE = nullptr;
 
@@ -16,6 +16,4 @@ CrawlerEndEffector* CrawlerEndEffector::getInstance() {
     return INSTANCE;
 }
 
-void CrawlerEndEffector::process() {
-
-}
+void CrawlerEndEffector::process() {}

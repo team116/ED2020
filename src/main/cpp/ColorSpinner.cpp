@@ -10,12 +10,10 @@
 ColorSpinnerEndEffector* ColorSpinnerEndEffector::INSTANCE = nullptr;
 
 ColorSpinnerEndEffector* ColorSpinnerEndEffector::getInstance() {
-  if (INSTANCE == nullptr) {
-    INSTANCE = new ColorSpinnerEndEffector();
-  }
-  return INSTANCE;
+    if (INSTANCE == nullptr) {
+        INSTANCE = new ColorSpinnerEndEffector();
+    }
+    return INSTANCE;
 }
 
-void ColorSpinnerEndEffector::process() {
-
-}
+void ColorSpinnerEndEffector::process() {}

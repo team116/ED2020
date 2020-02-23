@@ -1,22 +1,22 @@
 
 /*
-*   Created on: Some Day
-*   By: Jess Wu
-*
-*/
+ *   Created on: Some Day
+ *   By: Jess Wu
+ *
+ */
 #include <Intake.h>
 #include <Ports.h>
 
 IntakeEndEffector* IntakeEndEffector::INSTANCE = nullptr;
 IntakeEndEffector::IntakeEndEffector() {
     try {
-//      oi = OI::getInstance();
+        //      oi = OI::getInstance();
     } catch (std::exception& e) {
-      // add some kind of error message that means something
+        // add some kind of error message that means something
     }
-  }
+}
 
-  void IntakeEndEffector::intakeDeploy() {
+void IntakeEndEffector::intakeDeploy() {
     printf("Intake Deploying/n");
     m_IntakePiston.Set(frc::DoubleSolenoid::kForward);
 }
@@ -26,31 +26,27 @@ void IntakeEndEffector::intakeRetract() {
     m_IntakePiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
-void IntakeEndEffector::intakeOff() {
-    m_IntakePiston.Set(frc::DoubleSolenoid::kOff);
-}
+void IntakeEndEffector::intakeOff() { m_IntakePiston.Set(frc::DoubleSolenoid::kOff); }
 
 void IntakeEndEffector::intakeMovement(Direction direction) {
-    switch(direction) {
+    switch (direction) {
         // All speed values should be tweaked in testing (if time allows)
         case OFF:
             m_IntakeMotor.Set(0.0);
-        break;
+            break;
 
         case INTAKE:
             m_IntakeMotor.Set(0.5);
-        break;
+            break;
 
         case EJECT:
             m_IntakeMotor.Set(-0.5);
-        break;
+            break;
 
         default:
             frc::DriverStation::ReportError("In the Intake Default case");
-        
     }
 }
-
 
 IntakeEndEffector* IntakeEndEffector::getInstance() {
     if (INSTANCE == nullptr) {
@@ -58,4 +54,3 @@ IntakeEndEffector* IntakeEndEffector::getInstance() {
     }
     return INSTANCE;
 }
-
