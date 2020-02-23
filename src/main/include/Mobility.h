@@ -32,7 +32,7 @@ class Mobility {
 #endif
     // Constructor for class
 #ifdef HASPIGEONIMU
-    PigeonIMU* pigeon = new PigeonIMU(RobotPorts::kPigeonChannel);
+    PigeonIMU* pigeon = new PigeonIMU(RobotPorts::kPigeonID);
 
     enum {
         GoStraightOff,

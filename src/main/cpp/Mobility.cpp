@@ -8,6 +8,10 @@
 #include <Ports.h>
 #include <ctre/Phoenix.h>
 #include <frc/drive/DifferentialDrive.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
+#include <frc/smartdashboard/SendableChooser.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 Mobility* Mobility::INSTANCE = nullptr;
 
@@ -18,8 +22,8 @@ Mobility::Mobility() {
         frc::DriverStation::ReportError("Error initializing OI object");
         frc::DriverStation::ReportError(e.what());
     }
-    m_robotDrive.SetExpiration(2.0);
-    m_robotDrive.SetSafetyEnabled(false);
+    m_RobotDrive.SetExpiration(2.0);
+    m_RobotDrive.SetSafetyEnabled(false);
 }
 
 Mobility* Mobility::getInstance() {
@@ -73,7 +77,7 @@ double MaxCorrection(double forwardThrot, double scalor) {
 #endif
 
 void Mobility::process() {
-    m_robotDrive.FeedWatchdog();
+    m_RobotDrive.FeedWatchdog();
 
 #ifdef HASPIGEONIMU  // Do we have the pigeon IMU?
     /* some temps for Pigeon API */
@@ -118,10 +122,9 @@ void Mobility::process() {
             if (oi->userWantsToGoStraight == false) {
                 goStraight = GoStraightOff; /* user let go, turn off the feature */
             } else if (angleIsGood == false) {
-                goStraight =
-                    GoStraightSameThrottle; /* we were servoing with pidgy, but we lost
-                                               connection?  Check wiring and deviceID
-                                               setup */
+                goStraight = GoStraightSameThrottle; /* we were servoing with pidgy, but
+                                                        we lost connection?  Check wiring
+                                                        and deviceID setup */
             } else {
                 /* user still wants to drive straight, keep doing it */
             }
@@ -170,18 +173,17 @@ void Mobility::process() {
     /* some printing for easy debugging */
     if (++_printLoops > 100) {
         _printLoops = 0;
-        /*
-            GyroTab.Add("Error:", targetAngle - currentAngle);
-            GyroTab.Add("Angle:", currentAngle);
-            GyroTab.Add("Rate:", currentAngularRate);
-            GyroTab.Add("noMotionBiasCount:", genStatus.noMotionBiasCount);
-            GyroTab.Add("tempCompensationCount:", genStatus.tempCompensationCount);
-            if (angleIsGood) {
-              GyroTab.Add("Angle is:", "Good!");
-            } else {
-              GyroTab.Add("Angle is:", "NOT Good!");
-            }
-            */
+
+        GyroTab.Add("Error:", targetAngle - currentAngle);
+        GyroTab.Add("Angle:", currentAngle);
+        GyroTab.Add("Rate:", currentAngularRate);
+        GyroTab.Add("noMotionBiasCount:", genStatus.noMotionBiasCount);
+        GyroTab.Add("tempCompensationCount:", genStatus.tempCompensationCount);
+        if (angleIsGood) {
+            GyroTab.Add("Angle is:", "Good!");
+        } else {
+            GyroTab.Add("Angle is:", "NOT Good!");
+        }
     }
     /* press X button, Blue Button, to apply gains from webdash.  This can
      * be replaced with your favorite means of changing gains. */
@@ -196,8 +198,8 @@ void Mobility::process() {
             right /= 2.0;
         }
         // Only set the front motors as the rear ones are in follower mode
-        m_FrontLeftMotor.Set(ControlMode::PercentOutput, left);
-        m_FrontRightMotor.Set(ControlMode::PercentOutput, -1. * right);
+        Mobility::m_LeftFrontMotor.Set(ControlMode::PercentOutput, left);
+        Mobility::m_RightFrontMotor.Set(ControlMode::PercentOutput, -1. * right);
     }
 #else  // If the pigeon isn't enabled
     if (oi->halfPower) {

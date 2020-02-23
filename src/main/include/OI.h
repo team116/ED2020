@@ -16,9 +16,38 @@
 #include <frc/GenericHID.h>
 #include <frc/Joystick.h>
 #include <frc/XboxController.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
+#include <frc/smartdashboard/SendableChooser.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class OI {
    public:
+    double x, y;
+    volatile bool halfPower = false;
+    
+    enum Pos { LEFT, CENTER, RIGHT };
+    enum Dest {
+        DONOTHING,
+        LEFTSHOOT,
+        RIGHTSHOOT,
+        MIDDLESHOOT,
+        GETOFFTHELINE,
+        SHOOTANDGETBALLS
+    };
+
+    frc::SendableChooser<Pos> m_chooser;
+    frc::SendableChooser<Dest> m_destination;
+
+    Pos startPosition;
+    Dest destination;
+ 
+#ifdef HASPIGEONIMU  // Do we have the pigeon IMU?
+                     // Gyro Related
+    bool userWantsToGoStraight;
+    bool updateGains;
+#endif
+
     static OI *getInstance();
     void process();
     void processClimber();
