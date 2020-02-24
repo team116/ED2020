@@ -7,7 +7,10 @@
 #include <Shooter.h>
 #include <frc/drive/DifferentialDrive.h>
 #include "rev/CANSparkMax.h"
+#include <semaphore.h>
+#include <pthread.h>
 
+sem_t limelightSem;
 ShooterEndEffector* ShooterEndEffector::INSTANCE = nullptr;
 
 ShooterEndEffector* ShooterEndEffector::getInstance() {
@@ -24,3 +27,22 @@ void ShooterEndEffector::shooterPID(double setpoint) {
 }
 
 void ShooterEndEffector::process() {}
+
+#if defined(__linux__)
+static void limelightInterfaceThread() {
+    while (true) {
+        sem_wait(&limelightSem);
+        // Here we do the limelight interface code
+    }
+}
+#endif
+
+void ShooterEndEffector::launchLimelightInterfaceThread() {
+#if defined(__linux__)
+  std::thread limelightThread(limelightInterfaceThread);
+  limelightThread.detach();
+#else
+  wpi::errs() << "limelight Thread only available on Linux.\n";
+  wpi::errs().flush();
+#endif
+}

@@ -25,7 +25,7 @@ class OI {
    public:
     double x, y;
     volatile bool halfPower = false;
-    
+
     enum Pos { LEFT, CENTER, RIGHT };
     enum Dest {
         DONOTHING,
@@ -54,16 +54,14 @@ class OI {
     void processFeeder();
     void processIntake();
     void processShooter();
+    void processCrawler();
+    void processMobility();
 
    private:
     frc::DriverStation &ds = frc::DriverStation::GetInstance();
     OI();
     static OI *INSTANCE;
 
-    //  ClimberEndEffector *climber;
-    //  FeederEndEffector *feeder;
-    //  IntakeEndEffector *intake;
-    //  ShooterEndEffector *shooter;
 };
 
 #endif /* SRC_OI_H_ */

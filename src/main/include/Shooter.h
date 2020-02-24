@@ -25,6 +25,8 @@ class ShooterEndEffector {
     static ShooterEndEffector* getInstance();
 
     void process();
+    void launchLimelightInterfaceThread();
+
     void shooterPID(double setpoint);
     // rename these when design is more final
     // These have to be declared outside of the constructor for it to work
