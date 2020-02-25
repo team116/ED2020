@@ -35,7 +35,6 @@ Mobility* Mobility::getInstance() {
     return INSTANCE;
 }
 
-#ifdef HASPIGEONIMU  // Do we have the pigeon IMU?
 /** @return 10% deadband */
 double Db(double axisVal) {
     if (axisVal < -0.10) return axisVal;
@@ -51,6 +50,8 @@ double Cap(double value, double peak) {
     if (value > +peak) return +peak;
     return value;
 }
+
+#ifdef HASPIGEONIMU  // Do we have the pigeon IMU?
 /**
  * As a simple trick, lets take the spare talon and use the web-based
  * config to easily change the gains we use for the Pigeon servo.
@@ -204,11 +205,14 @@ void Mobility::process() {
         Mobility::m_RightFrontMotor.Set(ControlMode::PercentOutput, -1. * right);
     }
 #else  // If the pigeon isn't enabled
+    double leftSpeed = Db(oi->x);
+    double rightSpeed = Db(oi->y);
+
     if (oi->halfPower) {
         // Don't square the inputs as we're already cubing them
-        m_robotDrive.TankDrive(oi->x / 2.0, oi->y / 2.0, false);
+        m_RobotDrive.TankDrive(leftSpeed / 2.0, rightSpeed / 2.0, false);
     } else {
-        m_robotDrive.TankDrive(oi->x, oi->y, false);
+        m_RobotDrive.TankDrive(leftSpeed, rightSpeed, false);
     }
 #endif
 }

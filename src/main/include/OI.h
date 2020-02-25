@@ -26,6 +26,9 @@ class OI {
     double x, y;
     volatile bool halfPower = false;
 
+    frc::XboxController *xbox0;
+    frc::Joystick *logitech0;
+
     enum Pos { LEFT, CENTER, RIGHT };
     enum Dest {
         DONOTHING,
@@ -38,6 +41,8 @@ class OI {
 
     frc::SendableChooser<Pos> m_chooser;
     frc::SendableChooser<Dest> m_destination;
+
+    IntakeEndEffector *intake;
 
     Pos startPosition;
     Dest destination;

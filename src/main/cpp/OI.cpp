@@ -9,23 +9,44 @@
 bool someControl = false;
 OI *OI::INSTANCE = nullptr;
 
+OI::OI() {
+    xbox0 = new frc::XboxController(OIPorts::kXboxChannel);
+    logitech0 = new frc::Joystick(OIPorts::kLogitechChannel);
+
+    try {
+        intake = IntakeEndEffector::getInstance();
+    } catch (std::exception& e) {
+        frc::DriverStation::ReportError("Error initializing object for OI");
+        frc::DriverStation::ReportError(e.what());
+    }
+}
+
+void OI::processMobility() {
+    double leftSpeed = -xbox0->GetY(frc::GenericHID::JoystickHand::kLeftHand);
+    double rightSpeed = -xbox0->GetY(frc::GenericHID::JoystickHand::kRightHand);
+
+    x = leftSpeed * leftSpeed * leftSpeed;
+    y = rightSpeed * rightSpeed * rightSpeed;
+}
+
 void OI::processClimber() {}
 
 void OI::processFeeder() {}
 
 void OI::processIntake() {
     // Intake Piston Controls
-    if (someControl) {
-        //        OI::intake->intakeRetract();
-    }
-
-    if (someControl) {
-        //        OI::intake->intakeDeploy();
-    }
-
-    // Intake Roller Controls
-    if (someControl) {
-        //        OI::intake->intakeOff();
+    if (xbox0->GetBumper(frc::GenericHID::JoystickHand::kLeftHand)) {
+        if (xbox0->GetBackButton()) {
+            intake->intakeOff();
+        } else {
+            intake->intakeDeploy();
+        }
+    } else if (xbox0->GetBumper(frc::GenericHID::JoystickHand::kRightHand)) {
+        if (xbox0->GetBackButton()) {
+            intake->intakeOff();
+        } else {
+            intake->intakeRetract();
+        }
     }
 
     if (someControl) {
@@ -41,10 +62,9 @@ void OI::processIntake() {
 
 void OI::processShooter() {}
 
-OI::OI() {}
-
 void OI::process() {
     // processes all different parts if the robot.
+    OI::processMobility();
     OI::processFeeder();
     OI::processClimber();
     OI::processIntake();

@@ -11,7 +11,7 @@
 #define ED2020 1
 
 // Do we have the Pigeon IMU?
-#define HASPIGEONIMU 1
+//#define HASPIGEONIMU 1
 
 namespace RobotPorts {
 
@@ -65,5 +65,10 @@ constexpr int kColorSpinnerRetract = 5;
 constexpr int kClimberRelease = 3;
 constexpr int kExtra = 4;
 }  // namespace PCM0Ports
+
+namespace OIPorts {
+constexpr int kXboxChannel = 0;
+constexpr int kLogitechChannel = 1;
+} // namespace OIPorts
 
 #endif /* SRC_PORTS_H_ */
