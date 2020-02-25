@@ -24,6 +24,8 @@ Mobility::Mobility() {
     }
     m_RobotDrive.SetExpiration(2.0);
     m_RobotDrive.SetSafetyEnabled(false);
+	Mobility::m_LeftRearMotor.Follow(Mobility::m_LeftFrontMotor);
+	Mobility::m_RightRearMotor.Follow(Mobility::m_RightFrontMotor);
 }
 
 Mobility* Mobility::getInstance() {
