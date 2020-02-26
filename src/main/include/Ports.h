@@ -67,8 +67,22 @@ constexpr int kExtra = 4;
 }  // namespace PCM0Ports
 
 namespace OIPorts {
-constexpr int kXboxChannel = 0;
-constexpr int kLogitechChannel = 1;
+constexpr int kXboxPort = 0;
+constexpr int kLogitechPort = 1;
+
+// Logitech button mappings
+constexpr int kShooterWheelButtonNum = 1;
+constexpr int kClimberControlsActiveButtonNum = 2;
+constexpr int kIntakeRollerInButtonNum = 3;
+constexpr int kIntakeRollerOutButtonNum = 4;
+constexpr int kIntakeRollerOffButtonNum1 = 5;
+constexpr int kIntakeRollerOffButtonNum2 = 6;
+constexpr int kUnused3 = 7;
+constexpr int kUnused4 = 8;
+constexpr int kControlWheelExtendButtonNum = 9;
+constexpr int kControlWheelRetractButtonNum = 10;
+constexpr int kControlWheelNormalSpeedButtonNum = 11;
+constexpr int kControlWheelSlowSpeedButtonNum = 12;
 } // namespace OIPorts
 
 #endif /* SRC_PORTS_H_ */

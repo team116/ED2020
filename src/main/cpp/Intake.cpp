@@ -4,29 +4,28 @@
  *   By: Jess Wu
  *
  */
+#include <frc/DriverStation.h>
 #include <Intake.h>
 #include <Ports.h>
 
 IntakeEndEffector* IntakeEndEffector::INSTANCE = nullptr;
 IntakeEndEffector::IntakeEndEffector() {
-    try {
-        //      oi = OI::getInstance();
-    } catch (std::exception& e) {
-        // add some kind of error message that means something
-    }
 }
 
 void IntakeEndEffector::intakeDeploy() {
-    printf("Intake Deploying/n");
+    printf("Intake Deploying\n");
     m_IntakePiston.Set(frc::DoubleSolenoid::kForward);
 }
 
 void IntakeEndEffector::intakeRetract() {
-    printf("Intake Rectracting/n");
+    printf("Intake Rectracting\n");
     m_IntakePiston.Set(frc::DoubleSolenoid::kReverse);
 }
 
-void IntakeEndEffector::intakeOff() { m_IntakePiston.Set(frc::DoubleSolenoid::kOff); }
+void IntakeEndEffector::intakeOff() {
+    printf("Turning off intake piston\n");
+    m_IntakePiston.Set(frc::DoubleSolenoid::kOff);
+}
 
 void IntakeEndEffector::intakeMovement(Direction direction) {
     switch (direction) {

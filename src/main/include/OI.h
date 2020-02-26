@@ -15,6 +15,8 @@
 #include <frc/DriverStation.h>
 #include <frc/GenericHID.h>
 #include <frc/Joystick.h>
+#include <frc/buttons/JoystickButton.h>
+#include <frc/buttons/POVButton.h>
 #include <frc/XboxController.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
@@ -28,6 +30,20 @@ class OI {
 
     frc::XboxController *xbox0;
     frc::Joystick *logitech0;
+
+    // NOTE: Intake control buttons on Logitech joystick
+    frc::JoystickButton *intakeRollerInButton;
+    frc::JoystickButton *intakeRollerOutButton;
+    frc::JoystickButton *intakeRollerOffButton1;
+    frc::JoystickButton *intakeRollerOffButton2;
+
+    // NOTE: Feeder control buttons on Logitech joystick are special POV/dpad
+    frc::POVButton *feederUpPOVButton1;
+    frc::POVButton *feederUpPOVButton2;
+    frc::POVButton *feederUpPOVButton3;
+    frc::POVButton *feederDownPOVButton1;
+    frc::POVButton *feederDownPOVButton2;
+    frc::POVButton *feederDownPOVButton3;
 
     enum Pos { LEFT, CENTER, RIGHT };
     enum Dest {

@@ -7,7 +7,6 @@
 #ifndef SRC_INTAKE_H_
 #define SRC_INTAKE_H_
 
-#include <OI.h>
 #include <Ports.h>
 #include <ctre/Phoenix.h>
 #include <frc/DoubleSolenoid.h>
