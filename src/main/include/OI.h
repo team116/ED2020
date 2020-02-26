@@ -45,6 +45,12 @@ class OI {
     frc::POVButton *feederDownPOVButton2;
     frc::POVButton *feederDownPOVButton3;
 
+    // Shooter
+    frc::JoystickButton *shooterWheelButton;
+
+    // Climber
+    frc::JoystickButton *climberControlsActiveButton;
+
     enum Pos { LEFT, CENTER, RIGHT };
     enum Dest {
         DONOTHING,
@@ -59,6 +65,9 @@ class OI {
     frc::SendableChooser<Dest> m_destination;
 
     IntakeEndEffector *intake;
+    FeederEndEffector *feeder;
+    ShooterEndEffector *shooter;
+    ClimberEndEffector *climber;
 
     Pos startPosition;
     Dest destination;
