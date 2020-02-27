@@ -12,11 +12,38 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 void Robot::RobotInit() {
+    double currentComp;
+    bool enabled;
+    bool pressureSW;
+
     m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
     m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
     frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
     // This is a comment
     // test 2
+
+    // Get the OI instance
+    try {
+        oi = OI::getInstance();
+    } catch (std::exception &e) {
+        frc::DriverStation::ReportError("Error initializing OI object");
+        frc::DriverStation::ReportError(e.what());
+    }
+
+      // Mobility
+    try {
+        mobility = Mobility::getInstance();
+    } catch (std::exception &e) {
+        frc::DriverStation::ReportError("Error initializing Mobility object");
+        frc::DriverStation::ReportError(e.what());
+    }
+
+    // Enable the closed loop compressor
+    Robot::compress->SetClosedLoopControl(true);
+    enabled = compress->Enabled();
+    pressureSW = compress->GetPressureSwitchValue();
+    currentComp = compress->GetCompressorCurrent();
+    printf(" %d  %d  %f", enabled, pressureSW, currentComp);
 }
 
 /**
@@ -63,7 +90,28 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+    Robot::compress->SetClosedLoopControl(true);
+  
+    while ((Robot::ds.IsOperatorControl()) && (Robot::ds.IsEnabled())) {
+        try {
+            oi->process();
+        } catch (std::exception &e) {
+            printf("Error in OI -- TeleopPeriodic\n%s", e.what());
+        }
+
+        try {
+            mobility->process();
+        } catch (std::exception &e) {
+            printf("Error in Mobility -- TeleopPeriodic\n%s", e.what());
+        }
+    }
+  
+    if (!Robot::ds.IsEnabled()) {
+        // Disable the closed loop compressor
+        Robot::compress->SetClosedLoopControl(false);
+    }
+}
 
 void Robot::TestPeriodic() {}
 

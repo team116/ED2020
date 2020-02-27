@@ -158,11 +158,11 @@ void OI::processColorSpinner() {
 
 void OI::process() {
     // processes all different parts if the robot.
-    OI::processMobility();
-    OI::processFeeder();
-    OI::processClimber();
-    OI::processIntake();
-    OI::processShooter();
+    processMobility();
+    processFeeder();
+    processClimber();
+    processIntake();
+    processShooter();
     processColorSpinner();
 }
 

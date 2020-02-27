@@ -9,8 +9,12 @@
 
 #include <string>
 
+#include <frc/DriverStation.h>
+#include <frc/Compressor.h>
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <OI.h>
+#include <Mobility.h>
 
 class Robot : public frc::TimedRobot {
    public:
@@ -21,8 +25,12 @@ class Robot : public frc::TimedRobot {
     void TeleopInit() override;
     void TeleopPeriodic() override;
     void TestPeriodic() override;
+    frc::Compressor *compress = new frc::Compressor(PCM0Ports::kPCM0CANID);
+    frc::DriverStation& ds = frc::DriverStation::GetInstance();
 
    private:
+    OI *oi;
+    Mobility *mobility;
     frc::SendableChooser<std::string> m_chooser;
     const std::string kAutoNameDefault = "Default";
     const std::string kAutoNameCustom = "My Auto";
