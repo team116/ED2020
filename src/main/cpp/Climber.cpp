@@ -19,3 +19,23 @@ ClimberEndEffector* ClimberEndEffector::getInstance() {
 void ClimberEndEffector::process() {
     // Do the work
 }
+
+void ClimberEndEffector::releaseClimber() {
+    if (!ClimberExtender.Get()) {
+        ClimberExtender.Set(true);
+    }
+}
+
+void ClimberEndEffector::turnSolenoidOff() {
+    if (ClimberExtender.Get()) {
+        ClimberExtender.Set(false);
+    }
+}
+
+void ClimberEndEffector::runWinch(double velocity) {
+    Winch.Set(velocity);
+}
+
+void ClimberEndEffector::stopWinch() {
+    runWinch(0.0);
+}

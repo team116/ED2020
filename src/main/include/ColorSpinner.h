@@ -17,7 +17,14 @@ class ColorSpinnerEndEffector {
     void process();
     void launchPixyInterfaceThread();
 
-    WPI_VictorSPX ColorSpinner{RobotPorts::kSpinnerID};
+    void extend();
+    void retract();
+    void turnOffSolenoid();
+    void spinNormalSpeed();
+    void spinSlowSpeed();
+    void stopSpinning();
+
+    WPI_TalonSRX ColorSpinner{RobotPorts::kSpinnerID};
     frc::DoubleSolenoid ColorSpinnerFolder{PCM0Ports::kPCM0,
                                            PCM0Ports::kColorSpinnerExtend,
                                            PCM0Ports::kColorSpinnerRetract};

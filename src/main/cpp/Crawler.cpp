@@ -17,3 +17,15 @@ CrawlerEndEffector* CrawlerEndEffector::getInstance() {
 }
 
 void CrawlerEndEffector::process() {}
+
+void CrawlerEndEffector::moveLeft() {
+    Crawler.Set(-0.5);
+}
+
+void CrawlerEndEffector::moveRight() {
+    Crawler.Set(0.5);
+}
+
+void CrawlerEndEffector::stop() {
+    Crawler.Set(0.0);
+}

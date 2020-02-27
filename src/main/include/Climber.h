@@ -16,10 +16,15 @@ class ClimberEndEffector {
 
     void process();
 
-    WPI_VictorSPX Winch{RobotPorts::kWinchID};
+    WPI_TalonSRX Winch{RobotPorts::kWinchID};
     frc::Solenoid ClimberExtender{PCM0Ports::kClimberRelease};
 
     ClimberEndEffector() {}
+
+    void turnSolenoidOff();
+    void releaseClimber();
+    void runWinch(double velocity);
+    void stopWinch();
 
    private:
     static ClimberEndEffector* INSTANCE;

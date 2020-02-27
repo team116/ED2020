@@ -7,6 +7,8 @@
 #ifndef SRC_OI_H_
 #define SRC_OI_H_
 
+#include <ColorSpinner.h>
+#include <Crawler.h>
 #include <Climber.h>
 #include <Feeder.h>
 #include <Intake.h>
@@ -50,6 +52,16 @@ class OI {
 
     // Climber
     frc::JoystickButton *climberControlsActiveButton;
+    frc::JoystickButton *climberReleaseButton;
+
+    // Solenoid control button
+    frc::JoystickButton *turnOffAllSolenoidsButton;
+
+    // ColorSpinner
+    frc::JoystickButton *controlWheelExtendButton;
+    frc::JoystickButton *controlWheelRetractButton;
+    frc::JoystickButton *controlWheelNormalSpeedButton;
+    frc::JoystickButton *controlWheelSlowSpeedButton;
 
     enum Pos { LEFT, CENTER, RIGHT };
     enum Dest {
@@ -68,6 +80,8 @@ class OI {
     FeederEndEffector *feeder;
     ShooterEndEffector *shooter;
     ClimberEndEffector *climber;
+    CrawlerEndEffector *crawler;
+    ColorSpinnerEndEffector *colorSpinner;
 
     Pos startPosition;
     Dest destination;
@@ -86,6 +100,7 @@ class OI {
     void processShooter();
     void processCrawler();
     void processMobility();
+    void processColorSpinner();
 
    private:
     frc::DriverStation &ds = frc::DriverStation::GetInstance();

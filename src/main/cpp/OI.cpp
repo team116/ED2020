@@ -18,6 +18,8 @@ OI::OI() {
         feeder = FeederEndEffector::getInstance();
         shooter = ShooterEndEffector::getInstance();
         climber = ClimberEndEffector::getInstance();
+        crawler = CrawlerEndEffector::getInstance();
+        colorSpinner = ColorSpinnerEndEffector::getInstance();
 
         intakeRollerInButton = new frc::JoystickButton(logitech0, OIPorts::kIntakeRollerInButtonNum);
         intakeRollerOutButton = new frc::JoystickButton(logitech0, OIPorts::kIntakeRollerOutButtonNum);
@@ -35,6 +37,14 @@ OI::OI() {
         shooterWheelButton = new frc::JoystickButton(logitech0, OIPorts::kShooterWheelButtonNum);
 
         climberControlsActiveButton = new frc::JoystickButton(logitech0, OIPorts::kClimberControlsActiveButtonNum);
+        climberReleaseButton = new frc::JoystickButton(logitech0, OIPorts::kClimberReleaseButtonNum);
+
+        turnOffAllSolenoidsButton = new frc::JoystickButton(logitech0, OIPorts::kTurnOffAllSolenoidsButtonNum);
+
+        controlWheelExtendButton = new frc::JoystickButton(logitech0, OIPorts::kControlWheelExtendButtonNum);
+        controlWheelRetractButton = new frc::JoystickButton(logitech0, OIPorts::kControlWheelRetractButtonNum);
+        controlWheelNormalSpeedButton = new frc::JoystickButton(logitech0, OIPorts::kControlWheelNormalSpeedButtonNum);
+        controlWheelSlowSpeedButton = new frc::JoystickButton(logitech0, OIPorts::kControlWheelSlowSpeedButtonNum);
 
     } catch (std::exception& e) {
         frc::DriverStation::ReportError("Error initializing object for OI");
@@ -57,9 +67,29 @@ void OI::processMobility() {
 
 void OI::processClimber() {
     if (climberControlsActiveButton->Get()) {
-        // FIXME: Do climber functions
+        double winchVelocity = logitech0->GetY();
+        if ((winchVelocity > 0.1) || (winchVelocity < -0.1)) {
+            climber->runWinch(winchVelocity);
+        } else {
+            climber->stopWinch();
+        }
+
+        double crawlerVelocity = logitech0->GetZ();
+        if (crawlerVelocity > 0.9) {
+            crawler->moveRight();
+        } else if (crawlerVelocity < -0.9) {
+            crawler->moveLeft();
+        } else {
+            crawler->stop();
+        }
     } else {
-        // FIXME: Stop all climber activity
+        climber->stopWinch();
+        climber->turnSolenoidOff();
+        crawler->stop();
+    }
+
+    if (turnOffAllSolenoidsButton->Get()) {
+        climber->turnSolenoidOff();
     }
 }
 
@@ -106,6 +136,26 @@ void OI::processShooter() {
     }
 }
 
+void OI::processColorSpinner() {
+    if (controlWheelExtendButton->Get()) {
+        colorSpinner->extend();
+    } else if (controlWheelRetractButton->Get()) {
+        colorSpinner->retract();
+    }
+
+    if (controlWheelNormalSpeedButton->Get()) {
+        colorSpinner->spinNormalSpeed();
+    } else if (controlWheelSlowSpeedButton->Get()) {
+        colorSpinner->spinSlowSpeed();
+    } else {
+        colorSpinner->stopSpinning();
+    }
+
+    if (turnOffAllSolenoidsButton->Get()) {
+        colorSpinner->turnOffSolenoid();
+    }
+}
+
 void OI::process() {
     // processes all different parts if the robot.
     OI::processMobility();
@@ -113,7 +163,7 @@ void OI::process() {
     OI::processClimber();
     OI::processIntake();
     OI::processShooter();
-    // FIXME: processColorSpinner() needs to exist
+    processColorSpinner();
 }
 
 OI *OI::getInstance() {

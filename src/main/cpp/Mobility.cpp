@@ -205,8 +205,11 @@ void Mobility::process() {
         Mobility::m_RightFrontMotor.Set(ControlMode::PercentOutput, -1. * right);
     }
 #else  // If the pigeon isn't enabled
-    double leftSpeed = Db(oi->x);
-    double rightSpeed = Db(oi->y);
+    // NOTE: See if we need deadband at all since we are cubing inputs
+    //double leftSpeed = Db(oi->x);
+    //double rightSpeed = Db(oi->y);
+    double leftSpeed = oi->x;
+    double rightSpeed = oi->y;
 
     if (oi->halfPower) {
         // Don't square the inputs as we're already cubing them

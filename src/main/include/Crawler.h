@@ -15,7 +15,11 @@ class CrawlerEndEffector {
     static CrawlerEndEffector* getInstance();
 
     void process();
-    WPI_VictorSPX Crawler{RobotPorts::kCrawlerID};  // Should be a NEO motor
+    WPI_TalonSRX Crawler{RobotPorts::kCrawlerID};  // Should be a NEO motor
+
+    void moveLeft();
+    void moveRight();
+    void stop();
 
     CrawlerEndEffector() {}
 

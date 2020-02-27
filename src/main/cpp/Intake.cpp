@@ -13,18 +13,24 @@ IntakeEndEffector::IntakeEndEffector() {
 }
 
 void IntakeEndEffector::intakeDeploy() {
-    printf("Intake Deploying\n");
-    m_IntakePiston.Set(frc::DoubleSolenoid::kForward);
+    if (m_IntakePiston.Get() != frc::DoubleSolenoid::kForward) {
+        printf("Intake Deploying\n");
+        m_IntakePiston.Set(frc::DoubleSolenoid::kForward);
+    }
 }
 
 void IntakeEndEffector::intakeRetract() {
-    printf("Intake Rectracting\n");
-    m_IntakePiston.Set(frc::DoubleSolenoid::kReverse);
+    if (m_IntakePiston.Get() != frc::DoubleSolenoid::kReverse) {
+        printf("Intake Rectracting\n");
+        m_IntakePiston.Set(frc::DoubleSolenoid::kReverse);
+    }
 }
 
 void IntakeEndEffector::intakeOff() {
-    printf("Turning off intake piston\n");
-    m_IntakePiston.Set(frc::DoubleSolenoid::kOff);
+    if (m_IntakePiston.Get() != frc::DoubleSolenoid::kOff) {
+        printf("Turning off intake piston\n");
+        m_IntakePiston.Set(frc::DoubleSolenoid::kOff);
+    }
 }
 
 void IntakeEndEffector::intakeMovement(Direction direction) {

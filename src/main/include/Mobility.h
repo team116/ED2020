@@ -22,9 +22,6 @@ class Mobility {
     WPI_TalonSRX m_LeftRearMotor{RobotPorts::kLeftRearID};
     WPI_TalonSRX m_RightFrontMotor{RobotPorts::kRightFrontID};
     WPI_TalonSRX m_RightRearMotor{RobotPorts::kRightRearID};
-    WPI_TalonSRX m_SpinnerMotor{RobotPorts::kSpinnerID};
-    WPI_TalonSRX m_WinchMotor{RobotPorts::kWinchID};
-    WPI_TalonSRX m_CrawlerMotor{RobotPorts::kCrawlerID};
 
     frc::DifferentialDrive m_RobotDrive{m_LeftFrontMotor, m_RightFrontMotor};
 #else
