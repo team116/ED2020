@@ -68,16 +68,17 @@ void OI::processMobility() {
 void OI::processClimber() {
     if (climberControlsActiveButton->Get()) {
         double winchVelocity = logitech0->GetY();
-        if ((winchVelocity > 0.1) || (winchVelocity < -0.1)) {
+        if ((winchVelocity > 0.2) || (winchVelocity < -0.2)) {
             climber->runWinch(winchVelocity);
         } else {
             climber->stopWinch();
         }
 
         double crawlerVelocity = logitech0->GetZ();
-        if (crawlerVelocity > 0.9) {
+        double altCrawlerVelocity = logitech0->GetX();
+        if ((crawlerVelocity > 0.9) || (altCrawlerVelocity > 0.8)) {
             crawler->moveRight();
-        } else if (crawlerVelocity < -0.9) {
+        } else if ((crawlerVelocity < -0.9) || (altCrawlerVelocity < -0.8)) {
             crawler->moveLeft();
         } else {
             crawler->stop();
