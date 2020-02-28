@@ -26,7 +26,7 @@ class IntakeEndEffector {
 
 #ifdef ED2020
     WPI_TalonSRX m_IntakeMotor{RobotPorts::kIntakeID};
-    frc::DoubleSolenoid m_IntakePiston{PCM0Ports::kPCM0, PCM0Ports::kIntakePistonExtend,
+    frc::DoubleSolenoid m_IntakePiston{PCM0Ports::kPCM0CANID, PCM0Ports::kIntakePistonExtend,
                                        PCM0Ports::kIntakePistonRetract};
 #else
     // Test bot

@@ -82,6 +82,10 @@ void OI::processClimber() {
         } else {
             crawler->stop();
         }
+
+        if (climberReleaseButton->Get()) {
+            climber->releaseClimber();
+        }
     } else {
         climber->stopWinch();
         climber->turnSolenoidOff();
@@ -128,8 +132,8 @@ void OI::processIntake() {
 
 void OI::processShooter() {
     if (shooterWheelButton->Get()) {
-        // -1.0 to 1.0 transformed to 0.0 - 1.0
-        double throttlePercentage = (logitech0->GetThrottle() + 1.0) / 2.0;
+        // throttle is like y axis, so down 1.0 to up -1.0 and then we transform to 0.0 - 1.0
+        double throttlePercentage = (-(logitech0->GetRawAxis(3)) + 1.0) / 2.0;
         shooter->shooterPID(throttlePercentage * shooter->MaxRPM);
     } else {
         shooter->shooterPID(0.0); // Turn it off

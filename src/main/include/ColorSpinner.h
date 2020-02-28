@@ -25,7 +25,7 @@ class ColorSpinnerEndEffector {
     void stopSpinning();
 
     WPI_TalonSRX ColorSpinner{RobotPorts::kSpinnerID};
-    frc::DoubleSolenoid ColorSpinnerFolder{PCM0Ports::kPCM0,
+    frc::DoubleSolenoid ColorSpinnerFolder{PCM0Ports::kPCM0CANID,
                                            PCM0Ports::kColorSpinnerExtend,
                                            PCM0Ports::kColorSpinnerRetract};
 

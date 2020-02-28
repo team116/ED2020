@@ -17,7 +17,7 @@ class ClimberEndEffector {
     void process();
 
     WPI_TalonSRX Winch{RobotPorts::kWinchID};
-    frc::Solenoid ClimberExtender{PCM0Ports::kClimberRelease};
+    frc::Solenoid ClimberExtender{PCM0Ports::kPCM0CANID, PCM0Ports::kClimberRelease};
 
     ClimberEndEffector() {}
 
