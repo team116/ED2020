@@ -38,6 +38,9 @@ class ShooterEndEffector {
     rev::CANSparkMax m_Shooter2Motor{RobotPorts::kShooter2ID,
                                      rev::CANSparkMax::MotorType::kBrushless};
 
+    rev::CANEncoder m_Shooter1Encoder{m_Shooter1Motor};
+    rev::CANEncoder m_Shooter2Encoder{m_Shooter2Motor};
+
     frc::DoubleSolenoid m_ShooterHood{PCM0Ports::kPCM0CANID,
                                       PCM0Ports::kShooterHoodExtend,
                                       PCM0Ports::kShooterHoodRetract};

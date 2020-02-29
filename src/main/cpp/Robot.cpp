@@ -36,6 +36,7 @@ void Robot::RobotInit() {
         oi->m_delay.AddOption("(2) Two Seconds", OI::Delay::TWO);
         oi->m_delay.AddOption("(3) Three Seconds", OI::Delay::THREE);
         oi->m_delay.AddOption("(5) Five Seconds", OI::Delay::FIVE);
+        oi->m_delay.AddOption("(8) Eight Seconds", OI::Delay::EIGHT);
         oi->m_delay.AddOption("(10) Ten Seconds", OI::Delay::TEN);
         frc::SmartDashboard::PutData("Start Delay", &(oi->m_delay));
 
@@ -234,7 +235,8 @@ void Robot::AutonomousPeriodic() {
                     ++step;
                     break;
                 case 2:
-                    if (drivingTimer->HasPeriodPassed(2.0)) {
+                    // FIXME: How long should we really try to drive off line?
+                    if (drivingTimer->HasPeriodPassed(0.25)) {
                         mobility->m_RobotDrive.TankDrive(0.0, 0.0, false);
                         ++step;
                     }
@@ -250,19 +252,57 @@ void Robot::AutonomousPeriodic() {
         case OI::Play::LEFTSHOOT:
             autoShooterRpms = shooter->MaxRPM;  // FIXME: Set to real desired value
             oi->selectedPlay = OI::Play::MIDDLESHOOT;
+            step = 0;
+            std::cout << "Switching to middle shoot" << std::endl;
             break;
         case OI::Play::MIDDLESHOOT:
             switch (step) {
                 case 0:
-                    // FIXME: Do the stuff...
+                    shooter->shooterPID(autoShooterRpms);
+                    shooterRampUpTimer->Start();
+                    shooterRampUpTimer->Reset();
+                    std::cout << "Ramping up shooter" << std::endl;
+                    ++step;
+                    break;
+                case 1:
+                    // FIXME: Have no idea how long it takes to come up to speed, use velocity if we can
+                    if (shooterRampUpTimer->HasPeriodPassed(3.0)) {
+                    //if (shooter->m_Shooter1Encoder.GetVelocity() >= autoShooterRpms)
+                        std::cout << "Ready to shoot" << std::endl;
+                        ++step;
+                    }
+                    break;
+                case 2:
+                    // FIXME: Probably can go faster
+                    feeder->feederPID(-100.0);
+                    feederTimer->Start();
+                    feederTimer->Reset();
+                    std::cout << "Sending balls up feeder" << std::endl;
+                    ++step;
+                    break;
+                case 3:
+                    // FIXME: How quickly can we do this... 1 second would be awesome if possible
+                    if (feederTimer->HasPeriodPassed(2.0)) {
+                        std::cout << "Stopping feeder" << std::endl;
+                        feeder->feederPID(0.0);
+                        ++step;
+                    }
+                    break;
+                case 4:
+                    std::cout << "switching to move off line" << std::endl;
+                    step = 0;
+                    oi->selectedPlay = OI::Play::GETOFFTHELINE;
                     break;
                 default:
+                    std::cout << "Sould never get here!!!!" << std::endl;
                     break;
             }
             break;
         case OI::Play::RIGHTSHOOT:
             autoShooterRpms = shooter->MaxRPM;  // FIXME: Set to real desired value
             oi->selectedPlay = OI::Play::MIDDLESHOOT;
+            step = 0;
+            std::cout << "Switching to middle shoot" << std::endl;
             break;
         default:
             switch (step) {

@@ -139,6 +139,9 @@ void OI::processShooter() {
     } else {
         shooter->shooterPID(0.0); // Turn it off
     }
+
+    frc::SmartDashboard::PutNumber("Shooter Motor 1 RPMs", shooter->m_Shooter1Encoder.GetVelocity());
+    frc::SmartDashboard::PutNumber("Shooter Motor 2 RPMs", shooter->m_Shooter2Encoder.GetVelocity());
 }
 
 void OI::processColorSpinner() {
