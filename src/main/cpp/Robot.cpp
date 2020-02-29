@@ -12,9 +12,11 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 void Robot::RobotInit() {
+#ifdef USE_COMPRESSOR
     double currentComp;
     bool enabled;
     bool pressureSW;
+#endif // USE_COMPRESSOR
 
     autoDelayTimer = new frc::Timer();
     drivingTimer = new frc::Timer();
@@ -77,11 +79,13 @@ void Robot::RobotInit() {
     }
 
     // Enable the closed loop compressor
+#ifdef USE_COMPRESSOR
     Robot::compress->SetClosedLoopControl(true);
     enabled = compress->Enabled();
     pressureSW = compress->GetPressureSwitchValue();
     currentComp = compress->GetCompressorCurrent();
     printf(" %d  %d  %f", enabled, pressureSW, currentComp);
+#endif // USE_COMPRESSOR
 }
 
 /**
@@ -274,7 +278,7 @@ void Robot::AutonomousPeriodic() {
                     break;
                 case 2:
                     // FIXME: Probably can go faster
-                    feeder->feederPID(-100.0);
+                    feeder->feederPID(-400.0);
                     feederTimer->Start();
                     feederTimer->Reset();
                     std::cout << "Sending balls up feeder" << std::endl;
@@ -320,8 +324,9 @@ void Robot::AutonomousPeriodic() {
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
+#ifdef USE_COMPRESSOR
     Robot::compress->SetClosedLoopControl(true);
-  
+#endif // USE_COMPRESSOR
     while ((Robot::ds.IsOperatorControl()) && (Robot::ds.IsEnabled())) {
         try {
             oi->process();
@@ -338,7 +343,9 @@ void Robot::TeleopPeriodic() {
   
     if (!Robot::ds.IsEnabled()) {
         // Disable the closed loop compressor
+#ifdef USE_COMPRESSOR
         Robot::compress->SetClosedLoopControl(false);
+#endif // USE_COMPRESSOR
     }
 }
 

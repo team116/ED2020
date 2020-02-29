@@ -26,9 +26,9 @@ constexpr int kFeederID = 5;
 constexpr int kShooter1ID = 6;
 constexpr int kShooter2ID = 7;
 constexpr int kIntakeID = 8;
-constexpr int kSpinnerID = 9;
+constexpr int kSpinnerID = 11;
 constexpr int kWinchID = 10;
-constexpr int kCrawlerID = 11;
+constexpr int kCrawlerID = 9;
 constexpr int kPigeonID = 12;
 
 // Digital I/O from RoboRIO  --  Be sure the rename these to something more
@@ -58,12 +58,12 @@ constexpr int kPCM0 = 0;
 constexpr int kPCM0CANID = 15;
 constexpr int kIntakePistonExtend = 0;
 constexpr int kIntakePistonRetract = 7;
-constexpr int kShooterHoodExtend = 1;
-constexpr int kShooterHoodRetract = 6;
-constexpr int kColorSpinnerExtend = 2;
-constexpr int kColorSpinnerRetract = 5;
-constexpr int kClimberRelease = 3;
-constexpr int kExtra = 4;
+constexpr int kShooterHoodExtend = 3; // was 1
+constexpr int kShooterHoodRetract = 4; // was 6
+constexpr int kColorSpinnerExtend = 1;  // was 2
+constexpr int kColorSpinnerRetract = 6;  // was 5
+constexpr int kClimberRelease = 5;  // was 3
+constexpr int kExtra = 2; // was 4
 }  // namespace PCM0Ports
 
 namespace OIPorts {

@@ -100,9 +100,9 @@ void OI::processClimber() {
 
 void OI::processFeeder() {
     if (feederUpPOVButton1->Get() || feederUpPOVButton2->Get() || feederUpPOVButton3->Get()) {
-        feeder->feederPID(-100.0);  // Supply desired RPM with sign and negative is "UP"
+        feeder->feederPID(-400.0);  // Supply desired RPM with sign and negative is "UP"
     } else if (feederDownPOVButton1->Get() || feederDownPOVButton2->Get() || feederDownPOVButton3->Get()) {
-        feeder->feederPID(100.0);
+        feeder->feederPID(400.0);
     } else {
         feeder->feederPID(0.0);  // Zero RPMs
     }

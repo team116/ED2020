@@ -20,7 +20,7 @@ class ShooterEndEffector {
            kMinOutput = -1.0;
 
     // motor max RPM
-    const double MaxRPM = 5700;
+    const double MaxRPM = -5700;  // NOTE: We want the RPM to be negative
     // read setpoint from joystick and scale by max rpm
     double SetPoint = 0.0;  // = MaxRPM*m_stick.GetY();
 

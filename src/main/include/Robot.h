@@ -18,6 +18,8 @@
 #include <Shooter.h>
 #include <Feeder.h>
 
+#define USE_COMPRESSOR 1
+
 class Robot : public frc::TimedRobot {
    public:
     void RobotInit() override;
@@ -27,7 +29,9 @@ class Robot : public frc::TimedRobot {
     void TeleopInit() override;
     void TeleopPeriodic() override;
     void TestPeriodic() override;
+#ifdef USE_COMPRESSOR
     frc::Compressor *compress = new frc::Compressor(PCM0Ports::kPCM0CANID);
+#endif // USE_COMPRESSOR
     frc::DriverStation& ds = frc::DriverStation::GetInstance();
 
    private:
