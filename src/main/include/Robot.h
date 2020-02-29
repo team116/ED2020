@@ -15,6 +15,8 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <OI.h>
 #include <Mobility.h>
+#include <Shooter.h>
+#include <Feeder.h>
 
 class Robot : public frc::TimedRobot {
    public:
@@ -31,8 +33,18 @@ class Robot : public frc::TimedRobot {
    private:
     OI *oi;
     Mobility *mobility;
-    frc::SendableChooser<std::string> m_chooser;
-    const std::string kAutoNameDefault = "Default";
-    const std::string kAutoNameCustom = "My Auto";
-    std::string m_autoSelected;
+    ShooterEndEffector *shooter;
+    FeederEndEffector *feeder;
+    double autoDelaySeconds = 0.0;
+    frc::Timer* autoDelayTimer;
+    frc::Timer* drivingTimer;
+    frc::Timer* shooterRampUpTimer;
+    frc::Timer* feederTimer;
+
+    double autoShooterRpms = 0.0;
+    int step = 0;
+    //frc::SendableChooser<std::string> m_chooser;
+    //const std::string kAutoNameDefault = "Default";
+    //const std::string kAutoNameCustom = "My Auto";
+    //std::string m_autoSelected;
 };

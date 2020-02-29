@@ -63,8 +63,19 @@ class OI {
     frc::JoystickButton *controlWheelNormalSpeedButton;
     frc::JoystickButton *controlWheelSlowSpeedButton;
 
-    enum Pos { LEFT, CENTER, RIGHT };
-    enum Dest {
+    enum Delay { ZERO,
+                 ONE,
+                 TWO,
+                 THREE,
+                 FOUR,
+                 FIVE,
+                 SIX,
+                 SEVEN,
+                 EIGHT,
+                 NINE,
+                 TEN};
+
+    enum Play {
         DONOTHING,
         LEFTSHOOT,
         RIGHTSHOOT,
@@ -73,8 +84,8 @@ class OI {
         SHOOTANDGETBALLS
     };
 
-    frc::SendableChooser<Pos> m_chooser;
-    frc::SendableChooser<Dest> m_destination;
+    frc::SendableChooser<Delay> m_delay;
+    frc::SendableChooser<Play> m_play;
 
     IntakeEndEffector *intake;
     FeederEndEffector *feeder;
@@ -83,8 +94,8 @@ class OI {
     CrawlerEndEffector *crawler;
     ColorSpinnerEndEffector *colorSpinner;
 
-    Pos startPosition;
-    Dest destination;
+    Delay startDelay;
+    Play selectedPlay;
  
 #ifdef HASPIGEONIMU  // Do we have the pigeon IMU?
                      // Gyro Related
