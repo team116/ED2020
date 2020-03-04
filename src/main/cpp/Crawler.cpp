@@ -19,11 +19,11 @@ CrawlerEndEffector* CrawlerEndEffector::getInstance() {
 void CrawlerEndEffector::process() {}
 
 void CrawlerEndEffector::moveLeft() {
-    Crawler.Set(-0.5);
+    Crawler.Set(1.0);
 }
 
 void CrawlerEndEffector::moveRight() {
-    Crawler.Set(0.5);
+    Crawler.Set(-1.0);
 }
 
 void CrawlerEndEffector::stop() {

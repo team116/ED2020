@@ -14,14 +14,14 @@ IntakeEndEffector::IntakeEndEffector() {
 
 void IntakeEndEffector::intakeDeploy() {
     if (m_IntakePiston.Get() != frc::DoubleSolenoid::kForward) {
-        printf("Intake Deploying\n");
+        //printf("Intake Deploying\n");
         m_IntakePiston.Set(frc::DoubleSolenoid::kForward);
     }
 }
 
 void IntakeEndEffector::intakeRetract() {
     if (m_IntakePiston.Get() != frc::DoubleSolenoid::kReverse) {
-        printf("Intake Rectracting\n");
+        //printf("Intake Rectracting\n");
         m_IntakePiston.Set(frc::DoubleSolenoid::kReverse);
     }
 }

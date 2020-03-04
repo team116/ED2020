@@ -245,6 +245,7 @@ void Robot::AutonomousPeriodic() {
                         ++step;
                     }
                     break;
+
                 case 3:
                     std::cout << "Driven off the line" << std::endl;
                     ++step;
@@ -262,7 +263,13 @@ void Robot::AutonomousPeriodic() {
         case OI::Play::MIDDLESHOOT:
             switch (step) {
                 case 0:
+                    #ifdef USE_PID_FOR_NEOS
                     shooter->shooterPID(autoShooterRpms);
+                    #endif // USE_PID_FOR_NEOS
+
+                    #ifndef USE_PID_FOR_NEOS
+                    shooter->setSpeed(-0.81);
+                    #endif // ! USE_PID_FOR_NEOS
                     shooterRampUpTimer->Start();
                     shooterRampUpTimer->Reset();
                     std::cout << "Ramping up shooter" << std::endl;
@@ -278,7 +285,14 @@ void Robot::AutonomousPeriodic() {
                     break;
                 case 2:
                     // FIXME: Probably can go faster
+                    #ifdef USE_PID_FOR_NEOS
                     feeder->feederPID(-400.0);
+                    #endif // USE_PID_FOR_NEOS
+
+                    #ifndef USE_PID_FOR_NEOS
+                    feeder->setSpeed(-0.30);
+                    #endif // !USE_PID_FOR_NEOS
+
                     feederTimer->Start();
                     feederTimer->Reset();
                     std::cout << "Sending balls up feeder" << std::endl;
@@ -288,11 +302,28 @@ void Robot::AutonomousPeriodic() {
                     // FIXME: How quickly can we do this... 1 second would be awesome if possible
                     if (feederTimer->HasPeriodPassed(2.0)) {
                         std::cout << "Stopping feeder" << std::endl;
-                        feeder->feederPID(0.0);
+                        #ifdef USE_PID_FOR_NEOS
+                        feeder->feederPID(-400.0);
+                        #endif // USE_PID_FOR_NEOS
+
+                        #ifndef USE_PID_FOR_NEOS
+                        feeder->setSpeed(0.0);
+                        #endif // !USE_PID_FOR_NEOS
                         ++step;
                     }
                     break;
                 case 4:
+                    #ifdef USE_PID_FOR_NEOS
+                    shooter->shooterPID(0.0);
+                    #endif // USE_PID_FOR_NEOS
+
+                    #ifndef USE_PID_FOR_NEOS
+                    shooter->setSpeed(0.0);
+                    #endif // ! USE_PID_FOR_NEOS
+
+                    ++step;
+                    break;
+                case 5:
                     std::cout << "switching to move off line" << std::endl;
                     step = 0;
                     oi->selectedPlay = OI::Play::GETOFFTHELINE;

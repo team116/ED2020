@@ -20,11 +20,33 @@ ShooterEndEffector* ShooterEndEffector::getInstance() {
     return INSTANCE;
 }
 
+#ifdef USE_PID_FOR_NEOS
 void ShooterEndEffector::shooterPID(double setpoint) {
+    #ifdef HAVE_SHOOTER_MOTORS
     ShooterEndEffector::SetPoint = setpoint;
     ShooterEndEffector::m_pidController.SetReference(ShooterEndEffector::SetPoint,
                                                      rev::ControlType::kVelocity);
+    #endif // HAVE_SHOOTER_MOTORS
 }
+#endif // USE_PID_FOR_NEOS
+
+#ifndef USE_PID_FOR_NEOS
+void ShooterEndEffector::setSpeed(double percentPower) {
+    #ifdef HAVE_SHOOTER_MOTORS
+    m_Shooter1Motor.Set(percentPower);
+    #endif // HAVE_SHOOTER_MOTORS
+}
+
+double ShooterEndEffector::getSpeed() {
+    #ifdef HAVE_SHOOTER_MOTORS
+    return m_Shooter1Motor.Get();
+    #endif // HAVE_SHOOTER_MOTORS
+
+    #ifndef HAVE_SHOOTER_MOTORS
+    return 0.0;
+    #endif // ! HAVE_SHOOTOR_MOTORS
+}
+#endif // ! USE_PID_FOR_NEOS
 
 void ShooterEndEffector::process() {}
 

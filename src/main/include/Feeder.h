@@ -22,17 +22,28 @@ class FeederEndEffector {
     double SetPoint = 0.0;  // = MaxRPM*m_stick.GetY();
 
     static FeederEndEffector* getInstance();
+
+    #ifdef USE_PID_FOR_NEOS
     void feederPID(double setpoint);
+    #endif // USE_PID_FOR_NEOS
+
+    #ifndef USE_PID_FOR_NEOS
+    void setSpeed(double percentPower);
+    #endif // ! USE_PID_FOR_NEOS
+ 
     void process();
     // Should be a NEO motor
     rev::CANSparkMax m_FeederMotor{RobotPorts::kFeederID,
                                    rev::CANSparkMax::MotorType::kBrushless};
+
+    #ifdef USE_PID_FOR_NEOS
     /**
      * In order to use PID functionality for a controller, a CANPIDController object
      * is constructed by calling the GetPIDController() method on an existing
      * CANSparkMax object
      */
     rev::CANPIDController m_pidController = m_FeederMotor.GetPIDController();
+    #endif // USE_PID_FOR_NEOS
 
     // Encoder object created to display velocity values
     //  rev::CANEncoder m_encoder = m_FeederMotor.GetEncoder(); // for display purposes
@@ -42,6 +53,7 @@ class FeederEndEffector {
         m_FeederMotor.RestoreFactoryDefaults();
         m_FeederMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
 
+        #ifdef USE_PID_FOR_NEOS
         // set PID coefficients
         m_pidController.SetP(kP);
         m_pidController.SetI(kI);
@@ -49,6 +61,7 @@ class FeederEndEffector {
         m_pidController.SetIZone(kIz);
         m_pidController.SetFF(kFF);
         m_pidController.SetOutputRange(kMinOutput, kMaxOutput);
+        #endif // USE_PID_FOR_NEOS
     }
 
    private:

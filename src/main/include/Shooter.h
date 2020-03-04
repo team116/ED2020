@@ -29,7 +29,16 @@ class ShooterEndEffector {
     void process();
     void launchLimelightInterfaceThread();
 
+    #ifdef USE_PID_FOR_NEOS
     void shooterPID(double setpoint);
+    #endif // USE_PID_FOR_NEOS
+
+    #ifndef USE_PID_FOR_NEOS
+    void setSpeed(double percentPower);
+    double getSpeed();
+    #endif // ! USE_PID_FOR_NEOS
+
+    #ifdef HAVE_SHOOTER_MOTORS
     // rename these when design is more final
     // These have to be declared outside of the constructor for it to work
     rev::CANSparkMax m_Shooter1Motor{RobotPorts::kShooter1ID,
@@ -41,20 +50,24 @@ class ShooterEndEffector {
     rev::CANEncoder m_Shooter1Encoder{m_Shooter1Motor};
     rev::CANEncoder m_Shooter2Encoder{m_Shooter2Motor};
 
-    frc::DoubleSolenoid m_ShooterHood{PCM0Ports::kPCM0CANID,
-                                      PCM0Ports::kShooterHoodExtend,
-                                      PCM0Ports::kShooterHoodRetract};
+    //frc::DoubleSolenoid m_ShooterHood{PCM0Ports::kPCM0CANID,
+    //                                  PCM0Ports::kShooterHoodExtend,
+    //                                  PCM0Ports::kShooterHoodRetract};
     /**
      * In order to use PID functionality for a controller, a CANPIDController object
      * is constructed by calling the GetPIDController() method on an existing
      * CANSparkMax object
      */
+    #ifdef USE_PID_FOR_NEOS
     rev::CANPIDController m_pidController = m_Shooter1Motor.GetPIDController();
+    #endif // USE_PID_FOR_NEOS
+    #endif // HAVE_SHOOTER_MOTORS
 
     // Encoder object created to display velocity values
     //  rev::CANEncoder m_encoder = m_Shooter1Motor.GetEncoder();  // for display purposes
 
     ShooterEndEffector() {
+        #ifdef HAVE_SHOOTER_MOTORS
         // Initialize motors to factory defaults and set IdleMode
         m_Shooter1Motor.RestoreFactoryDefaults();
         m_Shooter2Motor.RestoreFactoryDefaults();
@@ -64,6 +77,7 @@ class ShooterEndEffector {
         // Have Shooter2 follow Shooter1 -- we only need to send commands to Shooter1
         m_Shooter2Motor.Follow(m_Shooter1Motor, true);
 
+        #ifdef USE_PID_FOR_NEOS
         // set PID coefficients
         m_pidController.SetP(kP);
         m_pidController.SetI(kI);
@@ -71,6 +85,8 @@ class ShooterEndEffector {
         m_pidController.SetIZone(kIz);
         m_pidController.SetFF(kFF);
         m_pidController.SetOutputRange(kMinOutput, kMaxOutput);
+        #endif // USE_PID_FOR_NEOS
+        #endif // HAVE_SHOOTER_MOTORS
 
         try {
             //      oi = OI::getInstance();

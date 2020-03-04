@@ -13,6 +13,10 @@
 // Do we have the Pigeon IMU?
 //#define HASPIGEONIMU 1
 
+//#define USE_PID_FOR_NEOS
+
+#define HAVE_SHOOTER_MOTORS
+
 namespace RobotPorts {
 
 // Motor Controller Ports
@@ -23,8 +27,10 @@ constexpr int kLeftRearID = 2;
 constexpr int kRightFrontID = 3;
 constexpr int kRightRearID = 4;
 constexpr int kFeederID = 5;
+#ifdef HAVE_SHOOTER_MOTORS
 constexpr int kShooter1ID = 6;
 constexpr int kShooter2ID = 7;
+#endif // HAVE_SHOOTER_MOTORS
 constexpr int kIntakeID = 8;
 constexpr int kSpinnerID = 11;
 constexpr int kWinchID = 10;

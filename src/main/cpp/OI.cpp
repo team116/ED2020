@@ -100,11 +100,29 @@ void OI::processClimber() {
 
 void OI::processFeeder() {
     if (feederUpPOVButton1->Get() || feederUpPOVButton2->Get() || feederUpPOVButton3->Get()) {
+        #ifdef USE_PID_FOR_NEOS        
         feeder->feederPID(-400.0);  // Supply desired RPM with sign and negative is "UP"
+        #endif // USE_PID_FOR_NEOS
+
+        #ifndef USE_PID_FOR_NEOS
+        feeder->setSpeed(-0.30);
+        #endif // !USE_PID_FOR_NEOS
     } else if (feederDownPOVButton1->Get() || feederDownPOVButton2->Get() || feederDownPOVButton3->Get()) {
+        #ifdef USE_PID_FOR_NEOS        
         feeder->feederPID(400.0);
+        #endif // USE_PID_FOR_NEOS
+
+        #ifndef USE_PID_FOR_NEOS
+        feeder->setSpeed(0.30);
+        #endif // !USE_PID_FOR_NEOS
     } else {
+        #ifdef USE_PID_FOR_NEOS        
         feeder->feederPID(0.0);  // Zero RPMs
+        #endif // USE_PID_FOR_NEOS
+
+        #ifndef USE_PID_FOR_NEOS
+        feeder->setSpeed(0.0);
+        #endif // !USE_PID_FOR_NEOS
     }
 }
 
@@ -135,13 +153,31 @@ void OI::processShooter() {
     if (shooterWheelButton->Get()) {
         // throttle is like y axis, so down 1.0 to up -1.0 and then we transform to 0.0 - 1.0
         double throttlePercentage = (-(logitech0->GetRawAxis(3)) + 1.0) / 2.0;
+        #ifdef USE_PID_FOR_NEOS
         shooter->shooterPID(throttlePercentage * shooter->MaxRPM);
+        #endif // USE_PID_FOR_NEOS
+
+        #ifndef USE_PID_FOR_NEOS
+        shooter->setSpeed(-throttlePercentage);
+        #endif // ! USE_PID_FOR_NEOS
     } else {
+        #ifdef USE_PID_FOR_NEOS
         shooter->shooterPID(0.0); // Turn it off
+        #endif // USE_PID_FOR_NEOS
+
+        #ifndef USE_PID_FOR_NEOS
+        shooter->setSpeed(0.0);
+        #endif // ! USE_PID_FOR_NEOS
     }
 
+    #ifndef USE_PID_FOR_NEOS
+    frc::SmartDashboard::PutNumber("Shooter Motor %", shooter->getSpeed());
+    #endif
+
+    #ifdef HAVE_SHOOTER_MOTORS
     frc::SmartDashboard::PutNumber("Shooter Motor 1 RPMs", shooter->m_Shooter1Encoder.GetVelocity());
     frc::SmartDashboard::PutNumber("Shooter Motor 2 RPMs", shooter->m_Shooter2Encoder.GetVelocity());
+    #endif // HAVE_SHOOTER_MOTORS
 }
 
 void OI::processColorSpinner() {
