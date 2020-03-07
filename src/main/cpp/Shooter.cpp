@@ -51,10 +51,28 @@ double ShooterEndEffector::getSpeed() {
 void ShooterEndEffector::process() {}
 
 #if defined(__linux__)
+std::shared_ptr<NetworkTable> ShooterEndEffector::table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 static void limelightInterfaceThread() {
     while (true) {
         sem_wait(&limelightSem);
         // Here we do the limelight interface code
+        double targetOffsetAngle_Horizontal = ShooterEndEffector::table->GetNumber("tx", 0);
+        bool targetExists = ShooterEndEffector::table->GetNumber("tv", 0);
+
+        // Change to mapped control
+        if (false) {
+            ShooterEndEffector::table->PutNumber("pipeline", 3);
+        }
+
+        // Change to mapped control
+        if (true) {
+            ShooterEndEffector::table->PutNumber("pipeline", 1);
+            if (targetExists) {
+                // Send the Drive to the correct position using pigeon
+            }
+        }
+
+        
     }
 }
 #endif

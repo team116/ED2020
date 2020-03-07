@@ -10,8 +10,8 @@
 #include <Ports.h>
 #include <frc/DoubleSolenoid.h>
 #include "rev/CANSparkMax.h"
-//#include "networktables/NetworkTable.h"
-//#include "networktables/NetworkTableInstance.h"
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
 
 class ShooterEndEffector {
    public:
@@ -66,6 +66,8 @@ class ShooterEndEffector {
     // Encoder object created to display velocity values
     //  rev::CANEncoder m_encoder = m_Shooter1Motor.GetEncoder();  // for display purposes
 
+    static std::shared_ptr<NetworkTable> table;
+
     ShooterEndEffector() {
         #ifdef HAVE_SHOOTER_MOTORS
         // Initialize motors to factory defaults and set IdleMode
@@ -94,12 +96,6 @@ class ShooterEndEffector {
             // add some kind of error message that means something
         }
     }
-
-    //std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
-    //double targetOffsetAngle_Horizontal;
-    //double targetOffsetAngle_Vertical;
-    //double targetArea;
-    //double targetSkew;
 
    private:
     static ShooterEndEffector* INSTANCE;
