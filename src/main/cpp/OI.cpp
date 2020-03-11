@@ -57,15 +57,15 @@ void OI::processMobility() {
     double rightSpeed = -xbox0->GetY(frc::GenericHID::JoystickHand::kRightHand);
 
     if (leftSpeed <= 0.05 && leftSpeed >= -0.05) {
-        leftSpeed = 0;
+        leftSpeed = 0.0;
     }
 
     if (rightSpeed <= 0.05 && rightSpeed >= -0.05) {
-        rightSpeed = 0;
+        rightSpeed = 0.0;
     }
     
-    x = leftSpeed * leftSpeed * leftSpeed;
-    y = rightSpeed * rightSpeed * rightSpeed;
+    x = leftSpeed; //leftSpeed * leftSpeed * leftSpeed;
+    y = rightSpeed; //rightSpeed * rightSpeed * rightSpeed;
 
     if (xbox0->GetBumper(frc::GenericHID::JoystickHand::kLeftHand)) {
         x = x / 2.0;
