@@ -12,14 +12,33 @@ VHS::VHS() {
         crawler = CrawlerEndEffector::getInstance();
         colorSpinner = ColorSpinnerEndEffector::getInstance();
 
+        isStopping = false;
         isInPlayback = false;
         isInRecording = false;
-        exitSignal = nullptr;
-        finishedSignal = nullptr;
+        exitPromise = nullptr;
+        finishedPromise = nullptr;
     } catch (std::exception& e) {
         frc::DriverStation::ReportError("Error initializing object for OI");
         frc::DriverStation::ReportError(e.what());
     }
+}
+
+void VHS::recordingThread(std::string filename, std::future<void> exitFuture, std::promise<void> finishedPromise) {
+    frc::DriverStation::ReportError("Thread has started");
+
+    while (exitFuture.wait_for(std::chrono::milliseconds(1)) == std::future_status::timeout)
+	{
+        // Do nothing, as we'll be doing it a lot
+    }
+
+    frc::DriverStation::ReportError("Sweet, we finished");
+
+    // FIXME: Just for testing
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+    frc::DriverStation::ReportError("Let stop process know");
+
+    finishedPromise.set_value();
 }
 
 void VHS::startRecording(std::string filename) {
@@ -33,25 +52,30 @@ void VHS::startRecording(std::string filename) {
         return;
     }
 
-    exitSignal = new std::promise<void>();
-    std::future<void> futureObj = exitSignal->get_future();
+    exitPromise = new std::promise<void>();
+    std::future<void> exitFuture = exitPromise->get_future();
 
-    finishedSignal = new std::promise<void>();
+    finishedPromise = new std::promise<void>();
     // Hopefully can get the future, because we cannot check the state otherwise...
     // For stopping, must not have any loops, need to ensure that we only set isInRecording = false when
     // we actually get notice that writing out the file is truly finished... might want to try a shared
     // mutex?
+
+    std::thread th(&VHS::recordingThread, VHS::getInstance(), filename, std::move(exitFuture), std::move(*finishedPromise));
+    th.detach();
     
     isInRecording = true;
 }
 
 void VHS::stopRecording() {
     if (isInRecording) {
-        frc::DriverStation::ReportError("Stopping Recording");
+        if (!isStopping) {
+            frc::DriverStation::ReportError("Stopping Recording");
+            isStopping = true;
+        }
+    } else {
+        frc::DriverStation::ReportError("Not recording, so ignoring stop request");
     }
-
-    exitSignal = nullptr; // technically this is a tiny memory leak
-    isInRecording = false;
 }
 
 void VHS::startPlayback(std::string filename) {
@@ -65,18 +89,36 @@ void VHS::startPlayback(std::string filename) {
         return;
     }
 
-    exitSignal = new std::promise<void>();
-    std::future<void> futureObj = exitSignal->get_future();
+    exitPromise = new std::promise<void>();
+    std::future<void> futureObj = exitPromise->get_future();
+
     isInPlayback = true;
 }
 
 void VHS::stopPlayback() {
     if (isInPlayback) {
         frc::DriverStation::ReportError("Stopping Playback");
+    
+        exitPromise = nullptr; // technically this is a tiny memory leak
+        isInPlayback = false;
+    } else {
+        frc::DriverStation::ReportError("Not in playback, so ignoring stop reequest");
     }
+}
 
-    exitSignal = nullptr; // technically this is a tiny memory leak
-    isInPlayback = false;
+void VHS::process() {
+    if (isStopping) {
+        std::future<void> finishedFuture = finishedPromise->get_future();
+        if (finishedFuture.wait_for(std::chrono::milliseconds(1)) != std::future_status::timeout)
+        {
+            frc::DriverStation::ReportError("Awesome we are stopped!");
+            isStopping = false;
+            isInPlayback = false;
+            isInRecording = false;
+            exitPromise = nullptr;
+            finishedPromise = nullptr;
+        }
+    }
 }
 
 VHS *VHS::getInstance() {

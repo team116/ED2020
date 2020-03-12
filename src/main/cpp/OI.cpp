@@ -21,6 +21,10 @@ OI::OI() {
         crawler = CrawlerEndEffector::getInstance();
         colorSpinner = ColorSpinnerEndEffector::getInstance();
 
+        #ifdef SUPPORT_RECORDING
+        vhs = VHS::getInstance();
+        #endif // SUPPORT_RECORDING
+
         intakeRollerInButton = new frc::JoystickButton(logitech0, OIPorts::kIntakeRollerInButtonNum);
         intakeRollerOutButton = new frc::JoystickButton(logitech0, OIPorts::kIntakeRollerOutButtonNum);
         intakeRollerOffButton1 = new frc::JoystickButton(logitech0, OIPorts::kIntakeRollerOffButtonNum1);
@@ -208,6 +212,18 @@ void OI::processColorSpinner() {
     }
 }
 
+void OI::processRecording() {
+    #ifdef SUPPORT_RECORDING
+    if (xbox0->GetBackButton() && xbox0->GetAButton()) {
+        vhs->startRecording("fake-file-name");
+    }
+
+    if (xbox0->GetBackButton() && xbox0->GetBButton()) {
+        vhs->stopRecording();
+    }
+    #endif // SUPPORT_RECORDING
+}
+
 void OI::process() {
     // processes all different parts if the robot.
     processMobility();
@@ -216,6 +232,10 @@ void OI::process() {
     processIntake();
     processShooter();
     processColorSpinner();
+
+    #ifdef SUPPORT_RECORDING
+    processRecording();
+    #endif // SUPPORT_RECORDING
 }
 
 OI *OI::getInstance() {

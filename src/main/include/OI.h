@@ -25,6 +25,13 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
+// Uncomment to allow recording functions to be compiled in and used
+#define SUPPORT_RECORDING
+
+#ifdef SUPPORT_RECORDING
+#include <VHS.h>
+#endif
+
 class OI {
    public:
     double x, y;
@@ -81,7 +88,10 @@ class OI {
         RIGHTSHOOT,
         MIDDLESHOOT,
         GETOFFTHELINE,
-        SHOOTANDGETBALLS
+        SHOOTANDGETBALLS,
+        PLAYBACK1,
+        PLAYBACK2,
+        PLAYBACK3
     };
 
     frc::SendableChooser<Delay> m_delay;
@@ -93,6 +103,10 @@ class OI {
     ClimberEndEffector *climber;
     CrawlerEndEffector *crawler;
     ColorSpinnerEndEffector *colorSpinner;
+
+#ifdef SUPPORT_RECORDING
+    VHS *vhs;
+#endif // SUPPORT_RECORDING
 
     Delay startDelay;
     Play selectedPlay;
@@ -112,6 +126,7 @@ class OI {
     void processCrawler();
     void processMobility();
     void processColorSpinner();
+    void processRecording();
 
    private:
     frc::DriverStation &ds = frc::DriverStation::GetInstance();

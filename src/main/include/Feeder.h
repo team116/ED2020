@@ -8,7 +8,14 @@
 #define SRC_FEEDER_H_
 
 #include <Ports.h>
+
+#ifndef TALONS_ONLY
 #include "rev/CANSparkMax.h"
+#endif // ! TALONS_ONLY
+
+#ifdef TALONS_ONLY
+#include <ctre/Phoenix.h>
+#endif // TALONS_ONLY
 
 class FeederEndEffector {
    public:
@@ -23,6 +30,7 @@ class FeederEndEffector {
 
     static FeederEndEffector* getInstance();
 
+#ifndef TALONS_ONLY
     #ifdef USE_PID_FOR_NEOS
     void feederPID(double setpoint);
     #endif // USE_PID_FOR_NEOS
@@ -31,7 +39,6 @@ class FeederEndEffector {
     void setSpeed(double percentPower);
     #endif // ! USE_PID_FOR_NEOS
  
-    void process();
     // Should be a NEO motor
     rev::CANSparkMax m_FeederMotor{RobotPorts::kFeederID,
                                    rev::CANSparkMax::MotorType::kBrushless};
@@ -63,6 +70,9 @@ class FeederEndEffector {
         m_pidController.SetOutputRange(kMinOutput, kMaxOutput);
         #endif // USE_PID_FOR_NEOS
     }
+#endif // TALONS_ONLY
+
+    void process();
 
    private:
     static FeederEndEffector* INSTANCE;

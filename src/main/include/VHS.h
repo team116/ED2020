@@ -23,20 +23,25 @@ class VHS {
     CrawlerEndEffector *crawler;
     ColorSpinnerEndEffector *colorSpinner;
 
+    void recordingThread(std::string filename, std::future<void> exitFuture, std::promise<void> finishedPromise);
+
     void startRecording(std::string filename);
     void stopRecording();
 
     void startPlayback(std::string filename);
     void stopPlayback();
 
+    void process();
+
     static VHS *getInstance();
 
     private:
+    bool isStopping;
     bool isInRecording;
     bool isInPlayback;
 
-    std::promise<void> *exitSignal;
-    std::promise<void> *finishedSignal;
+    std::promise<void> *exitPromise;
+    std::promise<void> *finishedPromise;
 
     VHS();
     static VHS *INSTANCE;

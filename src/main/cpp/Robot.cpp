@@ -197,6 +197,15 @@ void Robot::AutonomousInit() {
         case OI::Play::SHOOTANDGETBALLS:
             std::cout << "Shoot, get balls, solve world hunger" << std::endl;
             break;
+        case OI::Play::PLAYBACK1:
+            std::cout << "Playback #1" << std::endl;
+            break;
+        case OI::Play::PLAYBACK2:
+            std::cout << "Playback #2" << std::endl;
+            break;
+        case OI::Play::PLAYBACK3:
+            std::cout << "Playback #3" << std::endl;
+            break;
         default:
             std::cout << "We are not tracking this play!!!!!" << std::endl;
             break;
