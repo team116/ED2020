@@ -9,7 +9,15 @@
 
 #include <Ports.h>
 #include <frc/DoubleSolenoid.h>
+
+#ifndef TALONS_ONLY
 #include "rev/CANSparkMax.h"
+#endif // !TALONS_ONLY
+
+#ifdef TALONS_ONLY
+#include <ctre/Phoenix.h>
+#endif
+
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 
@@ -29,6 +37,7 @@ class ShooterEndEffector {
     void process();
     void launchLimelightInterfaceThread();
 
+#ifndef TALONS_ONLY
     #ifdef USE_PID_FOR_NEOS
     void shooterPID(double setpoint);
     #endif // USE_PID_FOR_NEOS
@@ -66,8 +75,6 @@ class ShooterEndEffector {
     // Encoder object created to display velocity values
     //  rev::CANEncoder m_encoder = m_Shooter1Motor.GetEncoder();  // for display purposes
 
-    static std::shared_ptr<NetworkTable> table;
-
     ShooterEndEffector() {
         #ifdef HAVE_SHOOTER_MOTORS
         // Initialize motors to factory defaults and set IdleMode
@@ -96,7 +103,21 @@ class ShooterEndEffector {
             // add some kind of error message that means something
         }
     }
+#endif // !TALONS_ONLY
 
+#ifdef TALONS_ONLY
+    WPI_TalonSRX m_Shooter1Motor{RobotPorts::kShooter1ID};
+    WPI_TalonSRX m_Shooter2Motor{RobotPorts::kShooter2ID};
+
+    void setSpeed(double percentPower);
+    double getSpeed();
+
+    ShooterEndEffector() {
+    }
+#endif
+
+   static std::shared_ptr<NetworkTable> table;
+   
    private:
     static ShooterEndEffector* INSTANCE;
 };

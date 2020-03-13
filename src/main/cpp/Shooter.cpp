@@ -6,7 +6,15 @@
 #include <Ports.h>
 #include <Shooter.h>
 #include <frc/drive/DifferentialDrive.h>
+
+#ifndef TALONS_ONLY
 #include "rev/CANSparkMax.h"
+#endif // !TALONS_ONLY
+
+#ifdef TALONS_ONLY
+#include <ctre/Phoenix.h>
+#endif
+
 #include <semaphore.h>
 #include <pthread.h>
 
@@ -19,7 +27,7 @@ ShooterEndEffector* ShooterEndEffector::getInstance() {
     }
     return INSTANCE;
 }
-
+#ifndef TALONS_ONLY
 #ifdef USE_PID_FOR_NEOS
 void ShooterEndEffector::shooterPID(double setpoint) {
     #ifdef HAVE_SHOOTER_MOTORS
@@ -47,6 +55,17 @@ double ShooterEndEffector::getSpeed() {
     #endif // ! HAVE_SHOOTOR_MOTORS
 }
 #endif // ! USE_PID_FOR_NEOS
+#endif // !TALONS_ONLY
+
+#ifdef TALONS_ONLY
+void ShooterEndEffector::setSpeed(double percentPower) {
+    m_Shooter1Motor.Set(percentPower);
+}
+
+double ShooterEndEffector::getSpeed() {
+    return m_Shooter1Motor.Get();
+}
+#endif
 
 void ShooterEndEffector::process() {}
 

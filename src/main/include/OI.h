@@ -26,7 +26,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 // Uncomment to allow recording functions to be compiled in and used
-#define SUPPORT_RECORDING
+//#define SUPPORT_RECORDING
 
 #ifdef SUPPORT_RECORDING
 #include <VHS.h>

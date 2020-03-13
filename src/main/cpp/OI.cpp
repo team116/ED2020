@@ -186,10 +186,16 @@ void OI::processShooter() {
     frc::SmartDashboard::PutNumber("Shooter Motor %", shooter->getSpeed());
     #endif
 
+    #ifndef TALONS_ONLY
     #ifdef HAVE_SHOOTER_MOTORS
     frc::SmartDashboard::PutNumber("Shooter Motor 1 RPMs", shooter->m_Shooter1Encoder.GetVelocity());
     frc::SmartDashboard::PutNumber("Shooter Motor 2 RPMs", shooter->m_Shooter2Encoder.GetVelocity());
     #endif // HAVE_SHOOTER_MOTORS
+    #endif // !TALONS_ONLY
+
+    #ifndef TALONS_ONLY
+    
+    #endif
 }
 
 void OI::processColorSpinner() {
@@ -214,11 +220,11 @@ void OI::processColorSpinner() {
 
 void OI::processRecording() {
     #ifdef SUPPORT_RECORDING
-    if (xbox0->GetBackButton() && xbox0->GetAButton()) {
+    if (xbox0->GetStartButton() && xbox0->GetAButton()) {
         vhs->startRecording("fake-file-name");
     }
 
-    if (xbox0->GetBackButton() && xbox0->GetBButton()) {
+    if (xbox0->GetStartButton() && xbox0->GetBButton()) {
         vhs->stopRecording();
     }
     #endif // SUPPORT_RECORDING

@@ -17,6 +17,8 @@
 
 #define HAVE_SHOOTER_MOTORS
 
+#define TALONS_ONLY
+
 namespace RobotPorts {
 
 // Motor Controller Ports

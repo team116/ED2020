@@ -70,7 +70,17 @@ class FeederEndEffector {
         m_pidController.SetOutputRange(kMinOutput, kMaxOutput);
         #endif // USE_PID_FOR_NEOS
     }
-#endif // TALONS_ONLY
+#endif // ! TALONS_ONLY
+
+#ifdef TALONS_ONLY
+    WPI_TalonSRX m_FeederMotor{RobotPorts::kFeederID};
+
+    FeederEndEffector() {
+        
+    }
+
+    void setSpeed(double percentPower);
+#endif // TALONS ONLY
 
     void process();
 
