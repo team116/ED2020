@@ -152,11 +152,11 @@ void OI::processIntake() {
         intake->intakeOff();
     }
 
-    if (intakeRollerInButton->Get()) {
+    if ((intakeRollerInButton->Get() || xbox0->GetBButton())) {
         intake->intakeMovement(IntakeEndEffector::Direction::INTAKE);
-    } else if (intakeRollerOutButton->Get()) {
+    } else if ((intakeRollerOutButton->Get() || xbox0->GetAButton())) {
         intake->intakeMovement(IntakeEndEffector::Direction::EJECT);
-    } else if (intakeRollerOffButton1->Get() || intakeRollerOffButton2->Get()) {
+    } else if ((intakeRollerOffButton1->Get() || intakeRollerOffButton2->Get()) || (!xbox0->GetAButton() && !xbox0->GetBButton())) {
         intake->intakeMovement(IntakeEndEffector::Direction::OFF);
     }
 }
