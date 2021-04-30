@@ -13,6 +13,7 @@
 
 class IntakeEndEffector {
    public:
+    bool intakeDeployed = false;
     void process();
     enum Direction { INTAKE, OFF, EJECT };
 

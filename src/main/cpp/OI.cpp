@@ -143,8 +143,10 @@ void OI::processIntake() {
     // P2 defaults to Y and P4 defaults to X buttons on xbox 
     if (xbox0->GetYButton()) {
         intake->intakeDeploy();
+        intake->intakeDeployed = true;
     } else if (xbox0->GetXButton()) {
         intake->intakeRetract();
+        intake->intakeDeployed = false;
     }
 
     // NOTE: Use back button as convention to turn off piston
@@ -153,8 +155,18 @@ void OI::processIntake() {
     }
 
     if ((intakeRollerInButton->Get() || xbox0->GetBButton())) {
+        if (intake->intakeDeployed) {    // they want the feeder to run if the intake is running
+            #ifndef USE_PID_FOR_NEOS
+            feeder->setSpeed(-0.30);
+            #endif // !USE_PID_FOR_NEOS        
+        }
         intake->intakeMovement(IntakeEndEffector::Direction::INTAKE);
     } else if ((intakeRollerOutButton->Get() || xbox0->GetAButton())) {
+        if (!intake->intakeDeployed) {   // they want the feeder to run if the intake is running
+            #ifndef USE_PID_FOR_NEOS
+            feeder->setSpeed(-0.30);
+            #endif // !USE_PID_FOR_NEOS        
+        }
         intake->intakeMovement(IntakeEndEffector::Direction::EJECT);
     } else if ((intakeRollerOffButton1->Get() || intakeRollerOffButton2->Get()) || (!xbox0->GetAButton() && !xbox0->GetBButton())) {
         intake->intakeMovement(IntakeEndEffector::Direction::OFF);

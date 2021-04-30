@@ -17,6 +17,9 @@
 
 #include <semaphore.h>
 #include <pthread.h>
+#include "frc/smartdashboard/Smartdashboard.h"
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
 
 sem_t limelightSem;
 ShooterEndEffector* ShooterEndEffector::INSTANCE = nullptr;
@@ -77,6 +80,16 @@ static void limelightInterfaceThread() {
         // Here we do the limelight interface code
         double targetOffsetAngle_Horizontal = ShooterEndEffector::table->GetNumber("tx", 0);
         bool targetExists = ShooterEndEffector::table->GetNumber("tv", 0);
+ 
+        double targetOffsetAngle_Vertical = ShooterEndEffector::table->GetNumber("ty",0.0);
+        double targetArea = ShooterEndEffector::table->GetNumber("ta",0.0);
+        double targetSkew = ShooterEndEffector::table->GetNumber("ts",0.0);
+
+        //post to smart dashboard periodically
+        frc::SmartDashboard::PutNumber("LimelightX", targetOffsetAngle_Horizontal);
+        frc::SmartDashboard::PutNumber("LimelightY", targetOffsetAngle_Vertical);
+        frc::SmartDashboard::PutNumber("LimelightArea", targetArea);
+        frc::SmartDashboard::PutNumber("LimelightSkew", targetSkew);
 
         // Change to mapped control
         if (false) {
