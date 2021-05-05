@@ -154,19 +154,9 @@ void OI::processIntake() {
         intake->intakeOff();
     }
 
-    if ((intakeRollerInButton->Get() || xbox0->GetBButton())) {
-        if (intake->intakeDeployed) {    // they want the feeder to run if the intake is running
-            #ifndef USE_PID_FOR_NEOS
-            feeder->setSpeed(-0.30);
-            #endif // !USE_PID_FOR_NEOS        
-        }
+    if ((intakeRollerInButton->Get() || xbox0->GetAButton())) {
         intake->intakeMovement(IntakeEndEffector::Direction::INTAKE);
-    } else if ((intakeRollerOutButton->Get() || xbox0->GetAButton())) {
-        if (!intake->intakeDeployed) {   // they want the feeder to run if the intake is running
-            #ifndef USE_PID_FOR_NEOS
-            feeder->setSpeed(-0.30);
-            #endif // !USE_PID_FOR_NEOS        
-        }
+    } else if ((intakeRollerOutButton->Get() || xbox0->GetBButton())) {
         intake->intakeMovement(IntakeEndEffector::Direction::EJECT);
     } else if ((intakeRollerOffButton1->Get() || intakeRollerOffButton2->Get()) || (!xbox0->GetAButton() && !xbox0->GetBButton())) {
         intake->intakeMovement(IntakeEndEffector::Direction::OFF);
