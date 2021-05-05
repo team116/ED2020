@@ -154,9 +154,9 @@ void OI::processIntake() {
         intake->intakeOff();
     }
 
-    if ((intakeRollerInButton->Get() || xbox0->GetAButton())) {
+    if ((intakeRollerInButton->Get() || xbox0->GetAButton() || xbox0->GetBumper(frc::GenericHID::JoystickHand::kRightHand))) {
         intake->intakeMovement(IntakeEndEffector::Direction::INTAKE);
-    } else if ((intakeRollerOutButton->Get() || xbox0->GetBButton())) {
+    } else if ((intakeRollerOutButton->Get() || xbox0->GetBButton() || xbox0->GetBumper(frc::GenericHID::JoystickHand::kLeftHand))) {
         intake->intakeMovement(IntakeEndEffector::Direction::EJECT);
     } else if ((intakeRollerOffButton1->Get() || intakeRollerOffButton2->Get()) || (!xbox0->GetAButton() && !xbox0->GetBButton())) {
         intake->intakeMovement(IntakeEndEffector::Direction::OFF);
