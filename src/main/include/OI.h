@@ -24,6 +24,7 @@
 #include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "networktables/NetworkTableInstance.h"
 
 // Uncomment to allow recording functions to be compiled in and used
 //#define SUPPORT_RECORDING
@@ -130,6 +131,7 @@ class OI {
 
    private:
     frc::DriverStation &ds = frc::DriverStation::GetInstance();
+    std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
     OI();
     static OI *INSTANCE;
 

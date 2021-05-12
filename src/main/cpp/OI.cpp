@@ -203,8 +203,16 @@ void OI::processShooter() {
 void OI::processColorSpinner() {
     if (controlWheelExtendButton->Get()) {
         colorSpinner->extend();
+        #ifdef HAVE_LIMELIGHT
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("camMode",1);  // Driver mode
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode",1);  // LED off
+        #endif
     } else if (controlWheelRetractButton->Get()) {
         colorSpinner->retract();
+        #ifdef HAVE_LIMELIGHT
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("camMode",0);  // Pipeline mode
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode",3);  // LED mode on
+        #endif
     }
 
     if (controlWheelNormalSpeedButton->Get()) {

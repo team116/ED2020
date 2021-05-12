@@ -10,6 +10,9 @@
 // We're running on the real robot
 #define ED2020 1
 
+// Do we have a LimeLight
+#define HAVE_LIMELIGHT 1
+
 // Do we have the Pigeon IMU?
 //#define HASPIGEONIMU 1
 
